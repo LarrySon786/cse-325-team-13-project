@@ -1,4 +1,4 @@
-using cse_325_team_13_project.Components;
+using StudentPortal.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 

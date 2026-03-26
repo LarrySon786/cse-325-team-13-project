@@ -24,4 +24,4 @@ ENV DOTNET_RUNNING_IN_CONTAINER=true
 
 EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "cse-325-team-13-project.dll"]
+ENTRYPOINT ["dotnet", "StudentPortal.dll"]
