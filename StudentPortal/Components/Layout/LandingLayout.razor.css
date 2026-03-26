@@ -1,0 +1,31 @@
+.page {
+    background: linear-gradient(to right, black 0%, black 55%, #FFC328);
+    margin:0;
+    height: 100%;
+    min-height: 100vh;
+    padding: 0.75rem;
+    position: relative;
+    background-image: linear-gradient(to right, black 0%, black 70%, #FFC328);
+    background-size: 120%;
+    animation: pulse-gold 10s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-gold {
+    0% {
+        background-position: right;
+        /* background-image: linear-gradient(to right, black 0%, black 70%, #FFC328); */
+    }
+    100% {
+        background-position: left;
+        /* background-image: linear-gradient(to right, black 0%, black 50%, #FFC328); */
+    }
+}
+
+
+@media (max-width:768px) {
+    .page{
+        background: linear-gradient(to bottom, black 0%, black 80%, #FFC328);
+    }
+    
+}
+

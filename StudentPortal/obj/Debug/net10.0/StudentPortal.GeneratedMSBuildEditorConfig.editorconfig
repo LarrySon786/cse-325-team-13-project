@@ -1,0 +1,83 @@
+is_global = true
+build_property.TargetFramework = net10.0
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v10.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = StudentPortal
+build_property.RootNamespace = StudentPortal
+build_property.ProjectDir = C:\Users\richa\Downloads\School\cse-325-NET\team-repo\cse-325-team-13-project\StudentPortal\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\richa\Downloads\School\cse-325-NET\team-repo\cse-325-team-13-project\StudentPortal
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 10.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/App.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Layout/EmptyLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcRW1wdHlMYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Layout/ProfilePic.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcUHJvZmlsZVBpYy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Pages/Dashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEYXNoYm9hcmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Pages/Error.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Pages/NotFound.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xOb3RGb3VuZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Routes.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Layout/LandingLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTGFuZGluZ0xheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-uj1j7dfl2f
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-t861kkvypb
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-idly5dw9hz
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Layout/ReconnectModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcUmVjb25uZWN0TW9kYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-j7j502a9q4
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Pages/LandingPage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMYW5kaW5nUGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-85qy90f9pv
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-chuttpji8n
+
+[C:/Users/richa/Downloads/School/cse-325-NET/team-repo/cse-325-team-13-project/StudentPortal/Components/Pages/Register.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZWdpc3Rlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-y86n5rxygj

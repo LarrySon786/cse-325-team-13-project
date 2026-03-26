@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "V/tV59Y/S58=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\richa\\Downloads\\School\\cse-325-NET\\team-repo\\cse-325-team-13-project\\StudentPortal\\StudentPortal.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\richa\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.3\\microsoft.aspnetcore.app.internal.assets.10.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
