@@ -1,0 +1,64 @@
+﻿@page "/"
+
+<PageTitle>Student Portal</PageTitle>
+
+<div class="container">
+    <div>
+        <h1 class="lower-emphasis">Welcome to</h1>
+        <h1>The Student Portal</h1>
+    </div>
+    <div class="image-container">
+        <a href="/">
+            <img src="/images/byu-logo-white.webp" alt="BYU Pathway Logo" width="300"/>
+        </a>
+    </div>
+    <div class="buttons-container">
+        <p>Sign-in or register an account to get started.</p>
+        <a href="/register">Register</a>
+        <a href="/login">Login →</a>
+    </div>
+</div>
+
+
+
+@* Below are the folder conventions for best practice. Brandon was using in designing and simplifying file locations *@
+
+@* YourAppName/
+├── Components/
+│ ├── Shared/ ← Reusable across entire app
+│ │ ├── Button.razor
+│ │ ├── Modal.razor
+│ │ └── Card.razor
+│ ├── Landing/ ← Feature-specific components
+│ │ ├── Hero.razor
+│ │ └── CTASection.razor
+│ ├── Products/
+│ │ ├── ProductCard.razor
+│ │ └── ProductFilter.razor
+│ └── Account/
+│ ├── LoginForm.razor
+│ └── ProfileCard.razor
+├── Shared/ ← Layouts and global UI
+│ ├── MainLayout.razor
+│ ├── LandingLayout.razor
+│ ├── NavMenu.razor
+│ └── Footer.razor
+└── Pages/ ← Routable pages only
+├── Landing/
+│ └── Index.razor
+└── Products/
+└── List.razor *@
+
+
+
+@* YourAppName/
+├── Components/
+│ ├── App.razor ← Root component here
+│ ├── Routes.razor ← Routing configuration here
+│ ├── Pages/
+│ │ └── Index.razor
+│ ├── Shared/
+│ │ └── MainLayout.razor
+│ └── _Imports.razor
+├── wwwroot/
+└── Program.cs *@
