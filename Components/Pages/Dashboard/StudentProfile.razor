@@ -1,0 +1,38 @@
+@page "/dashboard/profile";
+@inject StudentPortal.Components.Shared.Services.StudentAccount studentAccount;
+
+<div class="account-container">
+    <div class="page-container">
+        @* Profile Picture *@
+        <div class="student-info-container">
+            <div>
+                <ProfilePic width=200/>
+            </div>
+        @* Student Information *@
+            <div>
+                <p>
+                    <span class=".span-strong">Student Name: </span>
+                    @studentAccount.studentProfile.studentFirstName @studentAccount.studentProfile.studentLastName
+                </p>
+
+                <p><span class=".span-strong">Email: </span>@studentAccount.studentProfile.email</p>
+
+                <p><span class=".span-strong">Phone: </span>@studentAccount.studentProfile.phone</p>
+
+                <p><span class=".span-strong">Bio: </span>@studentAccount.studentProfile.studentBio</p>
+            </div>
+        </div>
+        @* Edit My Profile Link *@
+        <div class="profile-button-container">
+            <p></p>
+            <p></p>
+            <a href="/dashboard/profile/edit">Edit Profile</a>
+        </div>
+    </div>
+
+    <div class="page-container"> 
+        <h2>Enrolled Program: </h2>
+        <p>Enrollment Date: </p>
+    </div>
+</div>
+

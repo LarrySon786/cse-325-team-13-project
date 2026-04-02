@@ -1,0 +1,53 @@
+@page "/dashboard/schedule"
+@using StudentPortal.Components.Shared.Models
+@using StudentPortal.Components.Shared.Services
+@inject StudentSchedule schedule
+
+<h1>Schedule</h1>
+
+@if (schedule.classes.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Class Code</th>
+                <th>Name</th>
+                <th>Credits</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Class item in schedule.classes)
+            {
+                <tr>
+                    <td>@item.code</td>
+                    <td>@item.name</td>
+                    <td>@item.credits</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You are not registered for any classes.You can register <a href="/dashboard/class-registration">here</a>.</p>
+}
+
+
+<button class="btn btn-primary" @onclick="addTestClass">Add Test Class</button>
+
+<p style="min-height: 100vh;">Page content</p>
+
+@code {
+
+    private void addTestClass()
+    {
+        schedule.registerClass(new Class
+        {
+            code = "TEST101",
+            name = "Test Class",
+            credits = 3
+        });
+    }
+
+}
