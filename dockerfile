@@ -18,7 +18,7 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 
 EXPOSE 8080
 
-CMD ["dotnet", "watch", "run", "--urls", "http://0.0.0.0:8080"]
+CMD ["dotnet", "run", "--urls", "http://0.0.0.0:8080"]
 
 # -----------------------------
 # Build Stage (production)

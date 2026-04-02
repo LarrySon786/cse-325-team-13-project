@@ -10,6 +10,7 @@ builder.WebHost.UseUrls("http://0.0.0.0:8080");
 builder.Services.AddSingleton<StudentAccount>();
 builder.Services.AddScoped<DegreeProgress>();
 builder.Services.AddSingleton<StudentAccount>();
+builder.Services.AddScoped<StudentSchedule>();
 
 var app = builder.Build();
 
