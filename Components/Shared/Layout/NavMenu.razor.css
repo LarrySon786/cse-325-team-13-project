@@ -1,0 +1,29 @@
+
+
+nav {
+    position: fixed;
+    width: 175px;
+    height: 100%;
+    box-shadow: 5px 0 10px -5px rgba(0, 0, 0, 0.5);
+    /* border-left: solid brown 8px; */
+    border-left: solid rgb(128, 128, 235) 8px;
+    /* display: grid;
+    grid-template-columns: 1fr;
+    text-align: left;
+    row-gap: 1rem; */
+}
+
+.nav-link {
+    margin: 0;
+    padding: 1.25rem;
+    padding-left: 1rem;
+    text-align: left;
+    color: brown;
+    
+}
+
+.active {
+    color: brown;
+}
+
+

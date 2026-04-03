@@ -1,15 +1,81 @@
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+:root {
+    /* PRIMARY COLOR */
+    --byu-yellow: #FFC328;
+    --lighter-yellow: #f9c542;
+    --brown: brown;
+    --gray-background: #f2f2f2;
+    --gray-border: #c0c0c0;
+    /* HEADERS */
+    --font-poppins: Poppins; 
+    /* NORMAL TEXT */
+    --font-lexend: Lexend;
 }
 
-a, .btn-link {
-    color: #006bb7;
+html, body {
+    font-family: var(--font-poppins);
+}
+
+h1, h2, h3, h4, h5, h6, legend {
+    font-family: var(--font-poppins);
+    font-weight: 700;
+}
+
+.btn-link {
+    text-decoration: none;
+    background-color: var(--byu-yellow);
+    color: black;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    opacity: 0.95;
+    border-radius: 1rem;
+    font-weight: 700;
+    font-size: larger;
+    font-family: var(--font-lexend);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    border: none;
+    text-align: center;
+    
+}
+
+.btn-link:hover {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    transform: scale(1.1);
+    background-color: var(--byu-yellow);
+}
+
+a {
+    font-family: var(--font-lexend);
+}
+
+a:hover {
+    color: var(--brown);
+}
+
+
+p, span, body, main, label, form, input {
+    font-family: var(--font-lexend);
+}
+
+input[type="submit"] {
+    text-decoration: none;
+    background-color: var(--byu-yellow);
+    color: black;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    opacity: 0.95;
+    border-radius: 1rem;
+    font-weight: 700;
+    font-size: larger;
+    font-family: var(--font-lexend);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    text-align: right;
+    max-width: 150px;
+    border: none;
+    text-align: center;
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: #000000;
+    background-color: var(--BYU-yellow);
+    border-color: var(--BYU-yellow);
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -57,4 +123,22 @@ h1:focus {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
+}
+
+
+/* FORMS on website */
+
+
+form fieldset {
+    padding: 0.75rem;
+    margin:0.75rem;
+
+    & input, textarea {
+        max-width: 500px;
+        margin-bottom: 0.75rem;
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+        min-height: 1.5rem;
+        border: solid var(--gray-border) 1px;
+    }
 }

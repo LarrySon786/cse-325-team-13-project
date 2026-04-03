@@ -1,0 +1,73 @@
+@page "/dashboard/profile/edit"
+
+@using StudentPortal.Components.Shared.Services
+@inject StudentAccount studentAccount
+@inject NavigationManager nav
+
+<div class="account-container">
+    <div class="page-container">
+
+        <EditForm Model="studentAccount.studentProfile" OnValidSubmit="UpdateProfile" FormName="EditStudentProfile">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+            <fieldset>
+                <div class="profile-pic-container">
+                    <ProfilePic width=200 />
+
+                    <label for="file-upload" class="custom-file-upload">
+                        Change Profile Picture
+                    </label>
+
+                    <input id="file-upload" type="file" />
+                </div>
+                <div class="form-inputs">
+
+                    <legend>My Account</legend>
+                    <label>First Name</label>
+                    <input type="text"
+                           @bind="studentAccount.studentProfile.studentFirstName"
+                           required>
+
+                    <label>Last Name</label>
+                    <input type="text"
+                           @bind="studentAccount.studentProfile.studentLastName"
+                           required>
+
+                    <label>Email</label>
+                    <input type="email"
+                           @bind="studentAccount.studentProfile.email"
+                           required>
+
+                    <label>Phone</label>
+                    <input type="text"
+                           @bind="studentAccount.studentProfile.phone"
+                           required>
+
+                    <label>Bio</label>
+                    <textarea
+                        @bind="studentAccount.studentProfile.studentBio">
+                    </textarea>
+
+                    <div class="buttons-container">
+                        <input type="submit" value="Update Profile">
+                    </div>
+
+                </div>
+
+            </fieldset>
+        </EditForm>
+
+    </div>
+</div>
+
+
+@code {
+    private void UpdateProfile()
+    {
+        studentAccount.UpdateStudent(studentAccount.studentProfile);
+        
+        Console.WriteLine("Profile Updated");
+        nav.NavigateTo("/dashboard/profile");
+    }
+}
+
