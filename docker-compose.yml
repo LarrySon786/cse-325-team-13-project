@@ -1,33 +1,47 @@
 
 services:
   blazorapp:
-    build:
+
+    build: 
       context: .
-      dockerfile: Dockerfile
-      target: dev
-
+      #target: dev
     container_name: team-13-blazor-app
-
     ports:
       - "5500:8080"
-
     environment:
-      ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_URLS: http://0.0.0.0:8080
-      DOTNET_RUNNING_IN_CONTAINER: true
-      DOTNET_USE_POLLING_FILE_WATCHER: true
-
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:8080
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - DOTNET_USE_POLLING_FILE_WATCHER=true
+      - ASPNETCORE_ENVIRONMENT=Production # or Development
     volumes:
       - .:/src
       - /src/bin
       - /src/obj
-
     command: dotnet watch run --urls=http://0.0.0.0:8080
-
     stdin_open: true
     tty: true
-
-    restart: "no"
+    restart: unless-stopped
+    networks: 
+      - cse325-team13
+    depends_on:
+      - sqlserver
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "9e46ec5sFPK0w7uO"
+      ACCEPT_EULA: "Y"
+    # ports:
+    #   - "1433:1433"
+    networks:
+      - cse325-team13
+    volumes:
+      - ./Database/seed-data.sql:/docker-entrypoint-initdb.d/seed-data.sql
+    restart: unless-stopped
+networks:
+  cse325-team13:
+    driver: bridge
 
 # services:
 #   blazorapp:

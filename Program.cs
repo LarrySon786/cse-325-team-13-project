@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using StudentPortal.Data;
 using StudentPortal.Components;
 using StudentPortal.Components.Shared.Services;
 
@@ -7,12 +9,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.WebHost.UseUrls("http://0.0.0.0:8080");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddServerSideBlazor();
+
 builder.Services.AddSingleton<StudentAccount>();
 builder.Services.AddScoped<DegreeProgress>();
 builder.Services.AddSingleton<StudentAccount>();
 builder.Services.AddScoped<StudentSchedule>();
 
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -38,6 +52,7 @@ else
 
 app.UseAntiforgery();
 
+app.MapBlazorHub(); 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

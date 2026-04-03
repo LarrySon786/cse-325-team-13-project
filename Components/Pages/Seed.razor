@@ -1,0 +1,34 @@
+@page "/seed"
+@inject AppDbContext _context
+
+<h3>Seeding Database...</h3>
+<p>@Message</p>
+
+@code {
+    private string Message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Reset Database
+            await _context.Database.EnsureDeletedAsync();
+            await _context.Database.EnsureCreatedAsync();
+
+            // Add initial content
+            _context.Students.AddRange(
+                new Student { Name = "Alice", Email = "alice@example.com" },
+                new Student { Name = "Bob", Email = "bob@example.com" },
+                new Student { Name = "Charlie", Email = "charlie@example.com" }
+            );
+
+            await _context.SaveChangesAsync();
+
+            Message = "Database reset and seeded!";
+        }
+        catch (Exception ex)
+        {
+            Message = $"Error: {ex.Message}";
+        }
+    }
+}
