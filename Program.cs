@@ -18,6 +18,7 @@ builder.Services.AddSingleton<StudentAccount>();
 builder.Services.AddScoped<DegreeProgress>();
 builder.Services.AddScoped<StudentSchedule>();
 
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

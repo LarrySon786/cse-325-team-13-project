@@ -2,8 +2,11 @@
 @using StudentPortal.Components.Shared.Models
 @using StudentPortal.Components.Shared.Services
 @inject StudentSchedule schedule
+@implements IDisposable
 
-<h1>Schedule</h1>
+
+
+<h1>My Schedule</h1>
 
 @if (schedule.classes.Count > 0)
 {
@@ -39,6 +42,17 @@ else
 
 
 @code {
+    protected override void OnInitialized() 
+    {
+        schedule.OnChange += HandleChange;
+    }
+    private void HandleChange() {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose() {
+        schedule.OnChange -= HandleChange;
+    }
 
     private void addTestClass()
     {
