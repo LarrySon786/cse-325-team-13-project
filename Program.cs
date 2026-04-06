@@ -1,12 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using StudentPortal.Data;
 using StudentPortal.Components;
 using StudentPortal.Components.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
 builder.WebHost.UseUrls("http://0.0.0.0:8080");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddSingleton<StudentAccount>();
 builder.Services.AddScoped<DegreeProgress>();
 builder.Services.AddScoped<StudentSchedule>();
@@ -14,16 +21,20 @@ builder.Services.AddScoped<StudentSchedule>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();
+}
+
+// Middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 else
 {
-    // Disable caching for static files in development
     app.Use(async (context, next) =>
     {
         context.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
@@ -31,15 +42,14 @@ else
         context.Response.Headers["Expires"] = "0";
         await next();
     });
-}
-
-//app.UseHttpsRedirection();
-
+};
 
 app.UseAntiforgery();
 
-app.MapStaticAssets();
+app.MapGet("/seed", () => "HIT MINIMAL API");
+
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+app.MapStaticAssets();
 
 app.Run();

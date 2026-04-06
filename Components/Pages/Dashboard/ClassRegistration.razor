@@ -1,8 +1,132 @@
 @page "/dashboard/class-registration";
-@* @inject StudentPortal.Components.Shared.Services.StudentSchedule schedule; *@
+@using StudentPortal.Components.Shared.Models
+@inject StudentPortal.Components.Shared.Services.StudentSchedule schedule; 
 @* @inject StudentPortal.Components.Shared.Services.Class studentClass; *@
+@rendermode InteractiveServer
+
 
 <h1>Class Registration</h1>
 
+<h3>Available Classes</h3>
 
-<p style="min-height: 100vh;">Page content</p>
+@if (availableClasses == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Credits</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in availableClasses.Where(c => !IsRegistered(c.code)))
+            {
+                <tr>
+                    <td>@c.code</td>
+                    <td>@c.name</td>
+                    <td>@c.credits</td>
+                    <td>
+                        @if (IsRegistered(c.code))
+                        {
+                            <button class="btn btn-danger" @onclick="() => Drop(c.code)">
+                                Drop
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-success" @onclick="() => Register(c)">
+                                Register
+                            </button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3>My Registered Classes</h3>
+
+@if (!schedule.getSchedule().Any())
+{
+    <p>No classes registered.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Credits</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in schedule.getSchedule())
+            {
+                <tr>
+                    <td>@c.code</td>
+                    <td>@c.name</td>
+                    <td>@c.credits</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => Drop(c.code)">
+                            Drop
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<p style="color: green">@message</p>
+
+@code {
+    private List<Class> availableClasses;
+
+    protected override void OnInitialized()
+    {
+        availableClasses = new List<Class>
+        {
+            new Class("Web Development", "CSE300", 3),
+            new Class(".NET Software", "CSE325", 3),
+            new Class("Database Systems", "CSE310", 3),
+            new Class("Networking", "CSE340", 3)
+        };
+    }
+
+    bool IsRegistered(string code)
+    {
+        return schedule.getSchedule().Any(c => c.code == code);
+    }
+
+private string message = (""); 
+
+    void Register(Class c)
+{
+    if (!IsRegistered(c.code))
+    {
+        schedule.registerClass(c);
+        message = $"Registered for {c.name}";
+    }
+    else
+    {
+        message = $"Already registered for {c.name}";
+    }
+}
+
+    void Drop(string code)
+{
+    schedule.dropClass(code);
+    message = "Class dropped successfully";
+}
+}

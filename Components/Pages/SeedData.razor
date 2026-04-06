@@ -1,0 +1,44 @@
+
+@page "/seed-data"
+@inject AppDbContext _context
+@rendermode InteractiveServer
+
+@if (seeding) {
+  <p>Seeding Database...</p>
+} else {
+  <button @onclick="SeedDatabase">Seed Database</button>
+  <p>@Message</p>
+}
+
+
+@code {
+    private string Message;
+    private bool seeding = false;
+
+    protected async Task SeedDatabase()
+    {
+        seeding = true;
+        try
+        {
+            // Reset Database
+            await _context.Database.EnsureDeletedAsync();
+            await _context.Database.EnsureCreatedAsync();
+
+            // Add initial content
+            _context.Students.AddRange(
+                new Student { Name = "Alice", Email = "alice@example.com" },
+                new Student { Name = "Bob", Email = "bob@example.com" },
+                new Student { Name = "Charlie", Email = "charlie@example.com" }
+            );
+
+            await _context.SaveChangesAsync();
+
+            Message = "Database reset and seeded!";
+        }
+        catch (Exception ex)
+        {
+            Message = $"Error: {ex.Message}";
+        }
+        seeding = false;
+    }
+}

@@ -3,3 +3,4 @@ obj
 README.md
 .git
 .vscode
+*.sln
