@@ -4,10 +4,8 @@ namespace StudentPortal.Components.Shared.Services
 {
     public class StudentSchedule
     {
-        public int studentAccountNumber { get; set; } = 000000000;
         public List<Class> classes { get; set; } = new List<Class>();
-
-
+        public event Action? OnChange;
 
 
 
@@ -32,6 +30,7 @@ namespace StudentPortal.Components.Shared.Services
             if (classToRemove != null)
             {
                 classes.Remove(classToRemove);
+                OnChange?.Invoke();
             }
         }
 
@@ -39,6 +38,14 @@ namespace StudentPortal.Components.Shared.Services
         public void registerClass(Class newClass)
         {
             classes.Add(newClass);
+            OnChange?.Invoke();
         }
     }
 }
+
+
+
+
+
+
+
