@@ -1,8 +1,15 @@
 
-.table {
-    margin-top: 1rem;
+
+
+.more-info-button {
+    border: none;
+    background-color: brown;
+    color: white;
+    border-radius: 0.5rem;
+    
 
 }
+
 
 
 

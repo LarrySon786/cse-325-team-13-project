@@ -12,7 +12,21 @@ namespace StudentPortal.Components.Shared.Services
         public StudentSchedule()
         {
             // SAMPLE SCHEDULE
-            Class newClass = new Class(".Net Software", "CSE325", 3);
+            Class newClass = new Class(
+                ".Net Software",
+                "CSE325",
+                3,
+                new DateOnly(2026, 1, 1),
+                new DateOnly(2026, 2, 28),
+                new Dictionary<DayOfWeek, TimeOnly>
+                {
+                    { DayOfWeek.Monday, new TimeOnly(9, 0) },
+                    { DayOfWeek.Wednesday, new TimeOnly(9, 0) }
+                },
+                "Introduction to .NET development",
+                "Dr. Smith",
+                new List<string>()
+            );
             classes.Add(newClass);
         }
 
