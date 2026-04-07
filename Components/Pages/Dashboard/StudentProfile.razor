@@ -1,5 +1,6 @@
 @page "/dashboard/profile";
 @inject StudentPortal.Components.Shared.Services.StudentAccount studentAccount;
+@inject NavigationManager Navigation
 
 <div class="account-container">
     <div class="page-container">
@@ -12,14 +13,14 @@
             <div>
                 <p>
                     <span class=".span-strong">Student Name: </span>
-                    @studentAccount.studentProfile.studentFirstName @studentAccount.studentProfile.studentLastName
+                    @studentAccount.studentProfile?.FirstName @studentAccount.studentProfile?.LastName
                 </p>
 
-                <p><span class=".span-strong">Email: </span>@studentAccount.studentProfile.email</p>
+                <p><span class=".span-strong">Email: </span>@studentAccount.studentProfile?.Email</p>
 
-                <p><span class=".span-strong">Phone: </span>@studentAccount.studentProfile.phone</p>
+                <p><span class=".span-strong">Phone: </span>@studentAccount.studentProfile?.Phone</p>
 
-                <p><span class=".span-strong">Bio: </span>@studentAccount.studentProfile.studentBio</p>
+                <p><span class=".span-strong">Bio: </span>@studentAccount.studentProfile?.Bio</p>
             </div>
         </div>
         @* Edit My Profile Link *@
@@ -36,3 +37,11 @@
     </div>
 </div>
 
+@code {
+    protected override void OnInitialized()
+    {
+        if (!studentAccount.IsLoggedIn()) {
+            Navigation.NavigateTo("/login");
+        }
+    }
+}

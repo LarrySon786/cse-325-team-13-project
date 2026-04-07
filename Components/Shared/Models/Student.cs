@@ -1,24 +1,11 @@
-namespace StudentPortal.Components.Shared.Models;
-
 
 public class Student
 {
-    public string studentFirstName { get; set; } = "";
-    public string studentLastName { get; set; } = "";
-    public string email { get; set; } = "";
-    public string phone { get; set; } = "";
-    public string studentBio { get; set; } = "";
-    public int studentAccountNumber { get; set; } = 000000000;
-
-    public Student(string firstName, string lastName, string emails, string phones, string studentBios)
-    {
-
-        studentFirstName = firstName;
-        studentLastName = lastName;
-        email = emails;
-        phone = phones;
-        studentBio = studentBios;
-    }
-
-
+    public int Id { get; set; }
+    public string FirstName { get; set; } = "";  
+    public string LastName { get; set; } = "";  
+    public string Email { get; set; } = ""; 
+    public string Phone { get; set; } = "";  
+    public string Bio { get; set; } = "";  
+    public string HashedPassword { get; set; } = "";
 }

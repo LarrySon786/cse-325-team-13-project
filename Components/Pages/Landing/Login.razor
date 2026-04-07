@@ -1,23 +1,56 @@
 @page "/login"
+@using StudentPortal.Components.Shared.Services
+@using System.Text.Json
+@inject StudentAccount studentAccount
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+@inject AppDbContext _context
 
 <div class="container">
     
-    <form class=login-container>
-        <h2>Student Portal Login</h2>
-        <label>*Email</label>
-        <input type="email" required placeholder="johndoe@gmail.com">
-        <label>*Password</label>
-        <input type="text" name="password" required placeholder="•••••">
-        <div class="buttons-container">
-            <input type="submit" value="Login">
+    <EditForm Model="loginModel" onValidSubmit="login">
+        <div class="login-container">
+            <h2>Student Portal Login</h2>
+            <label>*Email</label>
+            <InputText type="email" required placeholder="johndoe@gmail.com" @bind-Value="loginModel.Email" />
+            <label>*Password</label>
+            <InputText type="password" name="password" required placeholder="•••••" @bind-Value="loginModel.Password" />
+            <div class="buttons-container">
+                <button type="submit">Login</button>
+            </div>
+            <p class="error-text">@errorMessage</p>
         </div>
-    </form>
+    </EditForm>
     <a href="/">← Return</a>
 </div>
 
 
 @code {
+    class LoginModel 
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+    private string errorMessage = "";
+    private LoginModel loginModel = new();
+    private void login() 
+    {
+        try {
+            Student? data = _context.GetStudent(loginModel.Email, loginModel.Password);
 
+            if (data == null) 
+            {
+                //Navigation.NavigateTo("/login");
+                errorMessage = "Username or password is incorrect!";
+                return;
+            }
+            studentAccount.SetLoggedIn(data);
+            Navigation.NavigateTo("/dashboard");
+
+        } catch {
+
+        }
+    }
 }
 
 

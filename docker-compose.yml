@@ -18,7 +18,7 @@ services:
       - .:/src
       - /src/bin
       - /src/obj
-    command: dotnet watch run --urls=http://0.0.0.0:8080
+    command: dotnet watch run StudentPortal.csproj --urls=http://0.0.0.0:8080
     stdin_open: true
     tty: true
     restart: unless-stopped
