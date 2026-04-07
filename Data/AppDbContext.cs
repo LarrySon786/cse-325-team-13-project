@@ -16,10 +16,6 @@ namespace StudentPortal.Data
         {
             return password; //todo - hash password
         }
-        public static bool VerifyPassword(string enteredPassword, string storedHash)
-        {
-            return enteredPassword.Equals(storedHash); //todo - hash password
-        }
         public void AddStudent(string firstName, string lastName, string email, string phone, string bio, string password)
         {
             string hashedPassword = HashPassword(password);
@@ -44,7 +40,7 @@ namespace StudentPortal.Data
         }
         public void SetStudent(string email, string password, Student data, Student studentProfile)
         {
-            var result = Students.Where(s => s.Email.Equals(email) && VerifyPassword(password, s.HashedPassword))?.ToList();
+            var result = Students.Where(s => s.Email.Equals(email) && s.HashedPassword.Equals(password))?.ToList();
             if (result == null || result.Count == 0)
                 return;
             var student = result.First();
