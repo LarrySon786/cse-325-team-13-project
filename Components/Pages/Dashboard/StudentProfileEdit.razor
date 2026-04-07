@@ -4,11 +4,13 @@
 @inject StudentAccount studentAccount
 @inject NavigationManager nav
 @rendermode InteractiveServer
+@inject NavigationManager Navigation
+@inject AppDbContext _context
 
 <div class="account-container">
     <div class="page-container">
 
-        <EditForm Model="studentAccount.studentProfile" OnValidSubmit="UpdateProfile" FormName="EditStudentProfile">
+        <EditForm Model="editStudent" OnValidSubmit="UpdateProfile" FormName="EditStudentProfile">
         <DataAnnotationsValidator />
         <ValidationSummary />
             <fieldset>
@@ -26,27 +28,27 @@
                     <legend>My Account</legend>
                     <label>First Name</label>
                     <input type="text"
-                           @bind="studentAccount.studentProfile.studentFirstName"
+                           @bind="editStudent.FirstName"
                            required>
 
                     <label>Last Name</label>
                     <input type="text"
-                           @bind="studentAccount.studentProfile.studentLastName"
+                           @bind="editStudent.LastName"
                            required>
 
                     <label>Email</label>
                     <input type="email"
-                           @bind="studentAccount.studentProfile.email"
+                           @bind="editStudent.Email"
                            required>
 
                     <label>Phone</label>
                     <input type="text"
-                           @bind="studentAccount.studentProfile.phone"
+                           @bind="editStudent.Phone"
                            required>
 
                     <label>Bio</label>
                     <textarea
-                        @bind="studentAccount.studentProfile.studentBio">
+                        @bind="editStudent.Bio">
                     </textarea>
 
                     <div class="buttons-container">
@@ -63,10 +65,26 @@
 
 
 @code {
+    Student editStudent = new(); //create a copy, so database entry can still be found if username/password changes
+    protected override void OnInitialized()
+    {
+        if (!studentAccount.IsLoggedIn()) {
+            Navigation.NavigateTo("/login");
+        }
+        //the form should wus the current data as placeholder text
+        editStudent = new Student{ 
+            FirstName = studentAccount.studentProfile.FirstName,
+            LastName = studentAccount.studentProfile.LastName,
+            Email = studentAccount.studentProfile.Email,
+            Phone = studentAccount.studentProfile.Phone,
+            Bio = studentAccount.studentProfile.Bio,
+            HashedPassword = studentAccount.studentProfile.HashedPassword 
+        };
+    }
     private void UpdateProfile()
     {
-        studentAccount.UpdateStudent(studentAccount.studentProfile);
-        
+        _context.SetStudent(studentAccount.studentProfile.Email, studentAccount.studentProfile.HashedPassword, editStudent, studentAccount.studentProfile);
+        //studentAccount.UpdateStudent(editStudent);
         Console.WriteLine("Profile Updated");
         nav.NavigateTo("/dashboard/profile");
     }

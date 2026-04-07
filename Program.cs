@@ -46,8 +46,6 @@ else
 
 app.UseAntiforgery();
 
-app.MapGet("/seed", () => "HIT MINIMAL API");
-
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 app.MapStaticAssets();

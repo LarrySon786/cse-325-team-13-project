@@ -7,7 +7,7 @@ WORKDIR /src
 
 # Copy only project file first for caching
 COPY StudentPortal.csproj ./
-RUN dotnet restore
+RUN dotnet restore StudentPortal.csproj
 
 # Copy everything else
 COPY . .
@@ -18,7 +18,7 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 
 EXPOSE 8080
 
-CMD ["dotnet", "run", "--urls", "http://0.0.0.0:8080"]
+CMD ["dotnet", "run", "StudentPortal.csproj", "--urls", "http://0.0.0.0:8080"]
 
 # -----------------------------
 # Build Stage (production)
@@ -28,11 +28,11 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 COPY StudentPortal.csproj ./
-RUN dotnet restore
+RUN dotnet restore StudentPortal.csproj
 
 COPY . .
 
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet publish StudentPortal.csproj -c Release -o /app/publish
 
 # -----------------------------
 # Runtime Stage (production)
