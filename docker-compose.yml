@@ -40,8 +40,8 @@ services:
     #   - "1433:1433"
     networks:
       - cse325-team13
-    volumes:
-      - ./Database/seed-data.sql:/docker-entrypoint-initdb.d/seed-data.sql
+    #volumes:
+    #  - ./Database/seed-data.sql:/docker-entrypoint-initdb.d/seed-data.sql
     restart: unless-stopped
 networks:
   cse325-team13:

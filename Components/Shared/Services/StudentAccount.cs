@@ -11,7 +11,7 @@ public class StudentAccount
     public StudentAccount()
     {
         // Temporary test data
-        studentProfile = new Student{ FirstName = "", LastName = "", Email = "", Phone = "", Bio = "", HashedPassword = "" };
+        studentProfile = new Student{ Id = -1, FirstName = "", LastName = "", Email = "", Phone = "", Bio = "", HashedPassword = "" };
     }
 
     public Student? GetStudent()
@@ -27,6 +27,7 @@ public class StudentAccount
     public bool SetLoggedIn(Student data)
     {
         isLoggedIn = true;
+        studentProfile.Id = data.Id;
         studentProfile.FirstName = data.FirstName;
         studentProfile.LastName = data.LastName;
         studentProfile.Email = data.Email;
@@ -36,20 +37,22 @@ public class StudentAccount
         return IsLoggedIn();
     }
 
-    public void UpdateStudent(Student updatedStudent)
-    {
-        if (!IsLoggedIn())
-            return;
-        studentProfile.FirstName = updatedStudent.FirstName;
-        studentProfile.LastName = updatedStudent.LastName;
-        studentProfile.Email = updatedStudent.Email;
-        studentProfile.Phone = updatedStudent.Phone;
-        studentProfile.Bio = updatedStudent.Bio;
-        studentProfile.HashedPassword = updatedStudent.HashedPassword;
-    }
+    // public void UpdateStudent(Student updatedStudent)
+    // {
+    //     if (!IsLoggedIn())
+    //         return;
+    //     studentProfile.Id = updatedStudent.Id;
+    //     studentProfile.FirstName = updatedStudent.FirstName;
+    //     studentProfile.LastName = updatedStudent.LastName;
+    //     studentProfile.Email = updatedStudent.Email;
+    //     studentProfile.Phone = updatedStudent.Phone;
+    //     studentProfile.Bio = updatedStudent.Bio;
+    //     studentProfile.HashedPassword = updatedStudent.HashedPassword;
+    // }
     public void LogOut()
     {
         isLoggedIn = false;
+        studentProfile.Id = -1;
         studentProfile.FirstName = "";
         studentProfile.LastName = "";
         studentProfile.Email = "";

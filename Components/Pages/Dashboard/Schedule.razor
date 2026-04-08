@@ -1,13 +1,15 @@
 @page "/dashboard/schedule"
 @using StudentPortal.Components.Shared.Models
 @using StudentPortal.Components.Shared.Services
-@inject StudentSchedule schedule
-
+@* @inject StudentSchedule schedule *@
+@inject NavigationManager Navigation
+@inject StudentPortal.Components.Shared.Services.StudentAccount studentAccount;
+@inject AppDbContext _context
 
 
 <h1>My Schedule</h1>
 
-@if (schedule.classes.Count > 0)
+@if (classes.Count > 0)
 {
     <table class="table">
         <thead>
@@ -18,18 +20,24 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (Class item in schedule.classes)
+            @foreach (Class c in classes)
             {
                 <tr>
-                    <td>@item.name</td>
+
+<!--                <td>@item.Code</td>
+                    <td>@item.Name</td>
+                    <td>@item.Credits</td> -->
+
+                    <td>@c.Name</td>
                     <td>
                         <p>
-                            @string.Join(", ", item.classSchedule.Select(s =>
+                            @string.Join(", ", c.ClassSchedule.Select(s =>
                             $"{s.Key.ToString().Substring(0,3)} {s.Value.ToString("h:mm tt").ToLower()}"))
                         </p>
                     </td>
-                    <td><button class="more-info-button" @onclick="() => DisplayClassInfo(item)">More Info</button></td>
+                    <td><button class="more-info-button" @onclick="() => DisplayClassInfo(c)">More Info</button></td>
                     
+
                 </tr>
             }
         </tbody>
@@ -48,7 +56,15 @@ else
     private bool showDialog = false;
     private Class currentClass;
 
+    private List<Class> classes = new();
 
+    protected override void OnInitialized()
+    {
+        if (!studentAccount.IsLoggedIn()) {
+            Navigation.NavigateTo("/login");
+        }
+        classes = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
+    }
     private void DisplayClassInfo(Class chosenClass) 
     {
         currentClass = chosenClass;
