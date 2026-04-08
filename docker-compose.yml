@@ -1,10 +1,14 @@
+# Brandon had to make a few changes to allow development stage enviroment to work
+# I had to uncomment - "target: dev"
+# I had to comment - "- ASPNETCORE_ENVIRONMENT=Production" for this to work in development
 
 services:
   blazorapp:
 
     build: 
       context: .
-      #target: dev
+      # Had to uncomment target dev to do development enviroment. Can comment at production later if needed. - Brandon
+      # target: dev
     container_name: team-13-blazor-app
     ports:
       - "5500:8080"
@@ -13,12 +17,12 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:8080
       - DOTNET_RUNNING_IN_CONTAINER=true
       - DOTNET_USE_POLLING_FILE_WATCHER=true
+      # I had to comment out the below ASPNETCORE_ENVIROMENT to enable development for application changes
       - ASPNETCORE_ENVIRONMENT=Production # or Development
     volumes:
       - .:/src
       - /src/bin
       - /src/obj
-    command: dotnet watch run StudentPortal.csproj --urls=http://0.0.0.0:8080
     stdin_open: true
     tty: true
     restart: unless-stopped
@@ -42,6 +46,16 @@ services:
 networks:
   cse325-team13:
     driver: bridge
+
+
+
+
+
+
+
+
+
+# OLD DOCKER-COMPOSE file
 
 # services:
 #   blazorapp:

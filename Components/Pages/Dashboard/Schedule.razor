@@ -2,7 +2,6 @@
 @using StudentPortal.Components.Shared.Models
 @using StudentPortal.Components.Shared.Services
 @inject StudentSchedule schedule
-@implements IDisposable
 
 
 
@@ -13,19 +12,23 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Class Code</th>
                 <th>Name</th>
-                <th>Credits</th>
+                <th>Class Time</th>
+                <th></th>
             </tr>
         </thead>
-
         <tbody>
             @foreach (Class item in schedule.classes)
             {
                 <tr>
-                    <td>@item.code</td>
                     <td>@item.name</td>
-                    <td>@item.credits</td>
+                    <td>
+                        <p>
+                            @string.Join(", ", item.classSchedule.Select(s =>
+                            $"{s.Key.ToString().Substring(0,3)} {s.Value.ToString("h:mm tt").ToLower()}"))
+                        </p>
+                    </td>
+                    <td><button class="more-info-button" @onclick=displayClassInfo>More Info</button></td>
                 </tr>
             }
         </tbody>
@@ -37,31 +40,17 @@ else
 }
 
 
-<button class="btn btn-primary" @onclick="addTestClass">Add Test Class</button>
+@* The below code was simply for testing purpose only. Commented out *@
+@* <button class="btn btn-primary" @onclick="addTestClass">Add Test Class</button> *@
 
 
 
 @code {
-    protected override void OnInitialized() 
+    private void displayClassInfo() 
     {
-        schedule.OnChange += HandleChange;
-    }
-    private void HandleChange() {
-        InvokeAsync(StateHasChanged);
+
+        @* Display Dialog box with all the class details... This may be a good thing to put in the services file *@
     }
 
-    public void Dispose() {
-        schedule.OnChange -= HandleChange;
-    }
-
-    private void addTestClass()
-    {
-        schedule.registerClass(new Class
-        {
-            code = "TEST101",
-            name = "Test Class",
-            credits = 3
-        });
-    }
 
 }

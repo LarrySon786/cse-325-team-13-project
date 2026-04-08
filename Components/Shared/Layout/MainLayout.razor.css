@@ -42,6 +42,10 @@ main {
     margin-top: 50px;
     padding: 0.75rem;
     background-color: #f2f2f2;
+
+    & article {
+        min-height: 100vh;
+    }
 }
 
 
