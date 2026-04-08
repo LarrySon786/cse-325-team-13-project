@@ -25,7 +25,7 @@ namespace StudentPortal.Components.Shared.Services
         // Remove a class
         public void dropClass(string code)
         {
-            var classToRemove = classes.FirstOrDefault(c => c.code == code);
+            var classToRemove = classes.FirstOrDefault(c => c.Code == code);
 
             if (classToRemove != null)
             {

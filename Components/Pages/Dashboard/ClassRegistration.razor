@@ -3,13 +3,15 @@
 @inject StudentPortal.Components.Shared.Services.StudentSchedule schedule; 
 @* @inject StudentPortal.Components.Shared.Services.Class studentClass; *@
 @rendermode InteractiveServer
-
+@inject AppDbContext _context
+@inject StudentPortal.Components.Shared.Services.StudentAccount studentAccount;
+@inject NavigationManager Navigation
 
 <h1>Class Registration</h1>
 
 <h3>Available Classes</h3>
 
-@if (availableClasses == null)
+@if (unenrolledClasses.Count == 0 && enrolledClasses.Count == 0)
 {
     <p>Loading...</p>
 }
@@ -25,25 +27,16 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var c in availableClasses.Where(c => !IsRegistered(c.code)))
+            @foreach (var c in unenrolledClasses)
             {
                 <tr>
-                    <td>@c.code</td>
-                    <td>@c.name</td>
-                    <td>@c.credits</td>
+                    <td>@c.Code</td>
+                    <td>@c.Name</td>
+                    <td>@c.Credits</td>
                     <td>
-                        @if (IsRegistered(c.code))
-                        {
-                            <button class="btn btn-danger" @onclick="() => Drop(c.code)">
-                                Drop
-                            </button>
-                        }
-                        else
-                        {
-                            <button class="btn btn-success" @onclick="() => Register(c)">
-                                Register
-                            </button>
-                        }
+                        <button class="btn btn-success" @onclick="() => Register(c)">
+                            Register
+                        </button>
                     </td>
                 </tr>
             }
@@ -71,14 +64,14 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var c in schedule.getSchedule())
+            @foreach (var c in enrolledClasses)
             {
                 <tr>
-                    <td>@c.code</td>
-                    <td>@c.name</td>
-                    <td>@c.credits</td>
+                    <td>@c.Code</td>
+                    <td>@c.Name</td>
+                    <td>@c.Credits</td>
                     <td>
-                        <button class="btn btn-danger" @onclick="() => Drop(c.code)">
+                        <button class="btn btn-danger" @onclick="() => Drop(c.Id)">
                             Drop
                         </button>
                     </td>
@@ -91,42 +84,45 @@ else
 <p style="color: green">@message</p>
 
 @code {
-    private List<Class> availableClasses;
+    private List<Class> unenrolledClasses = new();
+    private List<Class> enrolledClasses = new();
 
     protected override void OnInitialized()
     {
-        availableClasses = new List<Class>
-        {
-            new Class("Web Development", "CSE300", 3),
-            new Class(".NET Software", "CSE325", 3),
-            new Class("Database Systems", "CSE310", 3),
-            new Class("Networking", "CSE340", 3)
-        };
+        if (!studentAccount.IsLoggedIn()) {
+            Navigation.NavigateTo("/login");
+            return;
+        }
+        unenrolledClasses = _context.GetClassesNotEnrolled(studentAccount.studentProfile.Id);
+        enrolledClasses = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
     }
-
+@* 
     bool IsRegistered(string code)
     {
-        return schedule.getSchedule().Any(c => c.code == code);
-    }
+        return schedule.getSchedule().Any(c => c.Code == code);
+    } *@
 
 private string message = (""); 
 
     void Register(Class c)
 {
-    if (!IsRegistered(c.code))
-    {
-        schedule.registerClass(c);
-        message = $"Registered for {c.name}";
-    }
-    else
-    {
-        message = $"Already registered for {c.name}";
-    }
+
+    _context.RegisterClass(studentAccount.studentProfile.Id, c.Id);
+
+    //sync with db
+    unenrolledClasses = _context.GetClassesNotEnrolled(studentAccount.studentProfile.Id);
+    enrolledClasses = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
 }
 
-    void Drop(string code)
-{
-    schedule.dropClass(code);
-    message = "Class dropped successfully";
-}
+    void Drop(int id)
+    {
+        //immediate update
+        enrolledClasses = enrolledClasses.Where(c => c.Id != id).ToList();
+
+        _context.UnRegisterClass(studentAccount.studentProfile.Id, id);
+
+        //sync with db
+        unenrolledClasses = _context.GetClassesNotEnrolled(studentAccount.studentProfile.Id);
+        enrolledClasses = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
+    }
 }

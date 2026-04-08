@@ -2,14 +2,15 @@ namespace StudentPortal.Components.Shared.Models
 {
     public class Class
     {
-        public string code { get; set; } = "";
-        public string name { get; set; } = "";
-        public int credits { get; set; }
+        public int Id { get; set; }
+        public string Code { get; set; } = "";
+        public string Name { get; set; } = "";
+        public int Credits { get; set; }
 
         // Optional future fields
-        public string instructor { get; set; } = "";
-        public string description { get; set; } = "";
-        public DateTime startDate { get; set; }
+        public string Instructor { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string StartDate { get; set; } = "";
 
 
         
@@ -18,9 +19,9 @@ namespace StudentPortal.Components.Shared.Models
 
         public Class(string name, string code, int credits)
         {
-            this.name = name;
-            this.code = code;
-            this.credits = credits;
+            this.Name = name;
+            this.Code = code;
+            this.Credits = credits;
         }
     }
 }

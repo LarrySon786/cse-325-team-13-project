@@ -23,9 +23,9 @@
             @foreach (Class item in schedule.classes)
             {
                 <tr>
-                    <td>@item.code</td>
-                    <td>@item.name</td>
-                    <td>@item.credits</td>
+                    <td>@item.Code</td>
+                    <td>@item.Name</td>
+                    <td>@item.Credits</td>
                 </tr>
             }
         </tbody>
@@ -58,9 +58,9 @@ else
     {
         schedule.registerClass(new Class
         {
-            code = "TEST101",
-            name = "Test Class",
-            credits = 3
+            Code = "TEST101",
+            Name = "Test Class",
+            Credits = 3
         });
     }
 
