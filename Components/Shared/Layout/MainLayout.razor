@@ -1,26 +1,33 @@
 ﻿@inherits LayoutComponentBase
 
 
+@* This layout includes the Top-Bar, navigation on left, and footer for each page. *@
+
+@* Div for grouping the page *@
 <div class="webpage">
     <NavLink href="/seed-data" style="display:none;"></NavLink>
 
+    @* Div for top-bar editing *@
     <div class="top-bar">
         <a href="/dashboard"><img class="portal-title" src="/images/byu-logo-black.webp" alt="BYU Logo" width="200"></a>
             <p></p>
             <a href="/dashboard/support">Student Support</a>
         <ProfilePic width="43"/>
-        @* Creates a drop-down menu with option to edit profile, logout *@
+        @* FUTURE IDEA - Creates a drop-down menu with option to edit profile, logout *@
     </div>
 
+    @* Navigation menu on left *@
     <div class="navigation">
         <NavMenu />
     </div>
 
     <main>
+        @* Each individual Page's content *@
         <article>
             @Body
         </article>
         
+        @* Website Footer *@
         <footer>
             <div>
                 <p>Team 13 | CSE 325 - Student Portal</p>

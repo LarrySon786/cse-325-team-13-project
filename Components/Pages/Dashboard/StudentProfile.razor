@@ -2,6 +2,8 @@
 @inject StudentPortal.Components.Shared.Services.StudentAccount studentAccount;
 @inject NavigationManager Navigation
 
+@* This page displays a student's account information *@
+
 <div class="account-container">
     <div class="page-container">
         @* Profile Picture *@
@@ -31,6 +33,7 @@
         </div>
     </div>
 
+    @* This displays the student's currently enrolled program *@
     <div class="page-container"> 
         <h2>Enrolled Program: </h2>
         <p>Enrollment Date: </p>
@@ -40,6 +43,7 @@
 @code {
     protected override void OnInitialized()
     {
+        @* Authorization to access page *@
         if (!studentAccount.IsLoggedIn()) {
             Navigation.NavigateTo("/login");
         }

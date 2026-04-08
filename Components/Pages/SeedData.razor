@@ -4,6 +4,9 @@
 @inject AppDbContext _context
 @rendermode InteractiveServer
 
+@* This file is for development only. *@
+@* This file will provide a button to Seed the Database with sample data for testing. *@
+
 @if (seeding) {
   <p>Seeding Database...</p>
 } else {
@@ -18,6 +21,7 @@
     //private string test = "";
     private bool seeding = false;
 
+    @* Function to begin seeding database *@
     protected async Task SeedDatabase()
     {
         seeding = true;

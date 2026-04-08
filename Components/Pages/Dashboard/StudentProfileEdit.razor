@@ -9,11 +9,12 @@
 
 <div class="account-container">
     <div class="page-container">
-
+        @* This form allows students to update their account information *@
         <EditForm Model="editStudent" OnValidSubmit="UpdateProfile" FormName="EditStudentProfile">
         <DataAnnotationsValidator />
         <ValidationSummary />
             <fieldset>
+                @* Student Profile Picture *@
                 <div class="profile-pic-container">
                     <ProfilePic width=200 />
 
@@ -25,6 +26,7 @@
                 </div>
                 <div class="form-inputs">
 
+                    @* Student Account Information *@
                     <legend>My Account</legend>
                     <label>First Name</label>
                     <input type="text"
@@ -68,6 +70,7 @@
     Student editStudent = new(); //create a copy, so database entry can still be found if username/password changes
     protected override void OnInitialized()
     {
+        @* Authorization *@
         if (!studentAccount.IsLoggedIn()) {
             Navigation.NavigateTo("/login");
         }

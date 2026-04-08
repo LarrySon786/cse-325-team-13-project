@@ -7,6 +7,7 @@
 
 <h1>My Schedule</h1>
 
+@* If the student is registered for classes, then below will display a table of their classes *@
 @if (schedule.classes.Count > 0)
 {
     <table class="table">
@@ -18,16 +19,19 @@
             </tr>
         </thead>
         <tbody>
+            @* Each Class has a row in the table *@
             @foreach (Class item in schedule.classes)
             {
                 <tr>
                     <td>@item.name</td>
                     <td>
+                        @* Class Schedule / Times *@
                         <p>
                             @string.Join(", ", item.classSchedule.Select(s =>
                             $"{s.Key.ToString().Substring(0,3)} {s.Value.ToString("h:mm tt").ToLower()}"))
                         </p>
                     </td>
+                    @* More Information to pull up more info for each class *@
                     <td><button class="more-info-button" @onclick="() => DisplayClassInfo(item)">More Info</button></td>
                     
                 </tr>
@@ -37,24 +41,28 @@
 }
 else
 {
+    @* If the student has NO classes, then a link to register classes is displayed here *@
     <p>You are not registered for any classes. You can register <a href="/dashboard/class-registration">here</a>.</p>
 }
-
+@* Dialog Component to display additional class information (See DisplayClassInfo event handler in table) *@
 <ClassDetailsDialog StudentClass="currentClass" DialogOn="showDialog" OnExit="CloseDialog"  />
 
 
 
 @code {
+
+    @* Dialog Box variables, display, and close functions *@
     private bool showDialog = false;
     private Class currentClass;
 
-
+    @* Displays Dialog *@
     private void DisplayClassInfo(Class chosenClass) 
     {
         currentClass = chosenClass;
         showDialog = true;
     }
 
+    @* Closes Dialog *@
     private void CloseDialog() 
     {
         showDialog = false;

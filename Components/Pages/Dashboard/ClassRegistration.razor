@@ -9,6 +9,7 @@
 
 <h3>Available Classes</h3>
 
+@* Displays table of all classes in the data that are eligible for student registration*@
 @if (availableClasses == null)
 {
     <p>Loading...</p>
@@ -25,6 +26,7 @@ else
             </tr>
         </thead>
         <tbody>
+            @* Iterates through all available classes and displays them in the table *@
             @foreach (var c in availableClasses.Where(c => !IsRegistered(c.code)))
             {
                 <tr>
@@ -55,6 +57,7 @@ else
 
 <h3>My Registered Classes</h3>
 
+@* Displays a table of classes that the student IS registered for (if any) *@
 @if (!schedule.getSchedule().Any())
 {
     <p>No classes registered.</p>
@@ -93,6 +96,8 @@ else
 @code {
     private List<Class> availableClasses;
 
+    @* This creates sample data for registration classes 
+    (Can be stored in database for larger collection of data) *@
     protected override void OnInitialized()
     {
         DateOnly semesterStart = new DateOnly(2026, 1, 1);
@@ -143,7 +148,7 @@ else
         )
     };
     }
-
+    @* Checks if the student is registered for a course *@
     bool IsRegistered(string code)
     {
         return schedule.getSchedule().Any(c => c.code == code);
@@ -151,6 +156,7 @@ else
 
 private string message = (""); 
 
+    @* Checks if the student is registered to the class. If not, adds them to the class. *@
     void Register(Class c)
 {
     if (!IsRegistered(c.code))
@@ -163,7 +169,7 @@ private string message = ("");
         message = $"Already registered for {c.name}";
     }
 }
-
+    @* Will remove a class from the student's schedule. *@
     void Drop(string code)
 {
     schedule.dropClass(code);

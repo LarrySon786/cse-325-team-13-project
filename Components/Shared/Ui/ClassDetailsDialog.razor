@@ -1,6 +1,6 @@
 @using StudentPortal.Components.Shared.Models
 
-
+@* Styles for component *@
 <style>
     .overlay {
         position: fixed;
@@ -55,13 +55,15 @@
 </style>
 
 
-
+@* Dialog Box *@
 @if (DialogOn) {
+    @* Displays this box when toggled on *@
     <div class="overlay" @onclick="Close">
         <div class="dialog-container" @onclick:stopPropagation>
             <h3>@StudentClass?.code | @StudentClass?.name</h3>
             <button class="exit-button" @onclick="Close">x</button>
             <div>
+                @* Individual Class Data *@
                 <span>Class Dates:</span>
                 <p>@StudentClass?.startDate - @StudentClass?.endDate</p>
 
@@ -93,6 +95,7 @@
 
 
 @code {
+    @* Class Data received as parameter from 'more info' button on previous form *@
 
     [Parameter]
     public Class? StudentClass { get; set; }
@@ -101,6 +104,8 @@
     [Parameter]
     public EventCallback OnExit { get; set; }
 
+
+    @* function to close the dialog box (call back included) *@
     private async Task Close() 
     {
         await OnExit.InvokeAsync();

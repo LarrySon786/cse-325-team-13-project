@@ -1,7 +1,10 @@
 ﻿
-
+@* Website Navigation *@
 <nav>
+    @* Custom Hamburger Menu *@
     <button class="hamburger" @onclick="updateNav">☰</button>
+
+    @* Navigation Links *@
     <div class="nav-links @(openNav ? "open" : "")">
         <NavLink href="/dashboard" Match="NavLinkMatch.All">Home</NavLink>
         <NavLink href="/dashboard/schedule">My Schedule</NavLink>
@@ -14,6 +17,7 @@
 
 
 @code {
+    @* Hamburger Menu toggle *@
     public bool openNav = false;
 
     public void updateNav() {

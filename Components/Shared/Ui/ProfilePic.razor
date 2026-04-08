@@ -1,3 +1,4 @@
+@* Styles for component *@
 <style>
     .svg-logo {
         background-color: #ffffff;
@@ -21,13 +22,17 @@
     }
 </style>
 
+
 <div>
+    @* Link and Default SVG image included for profile picture *@
     <a href=/dashboard/profile >  
         <div class="svg-logo @(border ? "svg-border" : "")" style="justify-self: center; width:@(width)px; height:@(width)px;">
-            @* Run a conditional if statement to see if this students has a profile picture. 
+            @* FUTURE IDEA - run a conditional if statement to see if this students has a profile picture. 
             If so, use the profile picture (with the same dimensions)
             If not, then us the default svg image.*@
 
+
+            @* SVG Image *@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com 
                 License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
@@ -40,6 +45,7 @@
 </div>
 
 @code {
+    @* A customizable width that has a preset default. *@
     [Parameter]
     public int width { get; set; } = 30;
     [Parameter]

@@ -2,6 +2,8 @@ namespace StudentPortal.Components.Shared.Models
 {
     public class Class
     {
+
+        // Class Variables
         public string code { get; set; } = "";
         public string name { get; set; } = "";
         public int credits { get; set; }
@@ -12,9 +14,7 @@ namespace StudentPortal.Components.Shared.Models
         public string instructor { get; set; } = "";
         public List<string> prerequisiteClasses { get; set; }
 
-
-        public Class() { }
-
+        // Class Constructor
         public Class(string name, string code, int credits, DateOnly startDate, DateOnly endDate,
         Dictionary<DayOfWeek, TimeOnly> schedule, string description, string instructor,
         List<string> prerequisiteClasses)

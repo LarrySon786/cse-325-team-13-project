@@ -8,6 +8,7 @@
 
 <div class="container">
     
+    @* Student Login Form *@
     <EditForm Model="loginModel" onValidSubmit="login">
         <div class="login-container">
             <h2>Student Portal Login</h2>
@@ -26,6 +27,8 @@
 
 
 @code {
+
+    @* Student Login logic *@
     class LoginModel 
     {
         public string Email { get; set; }
@@ -33,6 +36,9 @@
     }
     private string errorMessage = "";
     private LoginModel loginModel = new();
+
+    @* Login function that checks database for existing username or password *@
+    @* Displays error messages upon failure. Redirects to dashboard if successful *@
     private void login() 
     {
         try {
