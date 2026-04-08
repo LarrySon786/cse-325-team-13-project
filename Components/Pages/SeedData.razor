@@ -28,11 +28,21 @@
             await _context.Database.EnsureCreatedAsync();
 
             _context.AddClasses(
-                ("code1", "name1", 1, "instructor1", "description1", "startDate1"),
-                ("code2", "name2", 1, "instructor2", "description2", "startDate2"),
-                ("code3", "name3", 1, "instructor3", "description3", "startDate3"),
-                ("code4", "name4", 1, "instructor4", "description4", "startDate4"),
-                ("code5", "name5", 1, "instructor5", "description5", "startDate5")
+                ("code1", "name1", 1, "instructor1", "description1", "startDate1", "endDate1", 
+                new Dictionary<DayOfWeek, TimeOnly>
+                {
+                    { DayOfWeek.Monday, new TimeOnly(9, 0) },
+                    { DayOfWeek.Wednesday, new TimeOnly(9, 0) }
+                }),
+                ("code2", "name2", 1, "instructor2", "description2", "startDate2", "endDate2", 
+                new Dictionary<DayOfWeek, TimeOnly>
+                {
+                    { DayOfWeek.Tuesday, new TimeOnly(11, 30) },
+                    { DayOfWeek.Wednesday, new TimeOnly(9, 0) }
+                }),
+                ("code3", "name3", 1, "instructor3", "description3", "startDate3", "endDate3", new()),
+                ("code4", "name4", 1, "instructor4", "description4", "startDate4", "endDate4", new()),
+                ("code5", "name5", 1, "instructor5", "description5", "startDate5", "endDate5", new())
             );
 
             // Add initial content

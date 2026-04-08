@@ -1,6 +1,6 @@
 @page "/dashboard/class-registration";
 @using StudentPortal.Components.Shared.Models
-@inject StudentPortal.Components.Shared.Services.StudentSchedule schedule; 
+@* @inject StudentPortal.Components.Shared.Services.StudentSchedule schedule;  *@
 @* @inject StudentPortal.Components.Shared.Services.Class studentClass; *@
 @rendermode InteractiveServer
 @inject AppDbContext _context
@@ -11,7 +11,7 @@
 
 <h3>Available Classes</h3>
 
-@if (unenrolledClasses.Count == 0 && enrolledClasses.Count == 0)
+@if (unenrolledClasses.Count == 0)
 {
     <p>Loading...</p>
 }
@@ -48,7 +48,7 @@ else
 
 <h3>My Registered Classes</h3>
 
-@if (!schedule.getSchedule().Any())
+@if (enrolledClasses.Count == 0)
 {
     <p>No classes registered.</p>
 }
@@ -98,9 +98,9 @@ else
         enrolledClasses = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
         
         //todo switch to using db
-        DateOnly semesterStart = new DateOnly(2026, 1, 1);
-        DateOnly semesterEnd = new DateOnly(2026, 2, 28);
-        availableClasses = new List<Class>
+        //DateOnly semesterStart = new DateOnly(2026, 1, 1);
+        //DateOnly semesterEnd = new DateOnly(2026, 2, 28);
+        @* availableClasses = new List<Class>
         {
         new Class("Web Development", "CSE300", 3, semesterStart,semesterEnd,
                         new()
@@ -144,7 +144,7 @@ else
                         "Dr. Davis",
                         new List<string> { "CSE210" }
         )
-    };
+    }; *@
 
     }
 @* 

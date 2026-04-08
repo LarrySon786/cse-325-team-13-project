@@ -59,28 +59,28 @@
 @if (DialogOn) {
     <div class="overlay" @onclick="Close">
         <div class="dialog-container" @onclick:stopPropagation>
-            <h3>@StudentClass?.code | @StudentClass?.name</h3>
+            <h3>@StudentClass?.Code | @StudentClass?.Name</h3>
             <button class="exit-button" @onclick="Close">x</button>
             <div>
                 <span>Class Dates:</span>
-                <p>@StudentClass?.startDate - @StudentClass?.endDate</p>
+                <p>@StudentClass?.StartDate - @StudentClass?.EndDate</p>
 
                 <span>Instructor:</span>
-                <p>@StudentClass?.instructor</p>
+                <p>@StudentClass?.Instructor</p>
 
-                <p><span>Credits: </span>@StudentClass?.credits</p>
+                <p><span>Credits: </span>@StudentClass?.Credits</p>
 
                 <span>Prerequisite Classes:</span>
                 <p>
-                    @(StudentClass?.prerequisiteClasses?.Any() == true
-                        ? string.Join(", ", StudentClass.prerequisiteClasses)
+                    @(StudentClass?.PrerequisiteClasses?.Any() == true
+                        ? string.Join(", ", StudentClass.PrerequisiteClasses)
                         : "None")
                 </p>
 
             </div>
             <div>
                 <span>Description: </span>
-                <p>@StudentClass.description</p>
+                <p>@StudentClass.Description</p>
             </div>
 
         </div>

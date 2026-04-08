@@ -15,15 +15,15 @@ namespace StudentPortal.Data
         public DbSet<Class> Classes { get; set; }
         public DbSet<ClassToStudent> Enrollments { get; set; }
 
-        public void AddClass(string code, string name, int credits, string instructor, string description, string startDate)
+        public void AddClass(string code, string name, int credits, string instructor, string description, string startDate, string endDate, Dictionary<DayOfWeek, TimeOnly> schedule)
         {
-            Classes.Add(new Class{ Code = code, Name = name, Credits = credits, Instructor = instructor, Description = description, StartDate = startDate });
+            Classes.Add(new Class{ Code = code, Name = name, Credits = credits, Instructor = instructor, Description = description, StartDate = startDate, EndDate = endDate, ClassSchedule = schedule });
         }
-        public void AddClasses(params (string code, string name, int credits, string instructor, string description, string startDate)[] classes)
+        public void AddClasses(params (string code, string name, int credits, string instructor, string description, string startDate, string endDate, Dictionary<DayOfWeek, TimeOnly> schedule)[] classes)
         {
-            foreach ((string code, string name, int credits, string instructor, string description, string startDate) in classes)
+            foreach ((string code, string name, int credits, string instructor, string description, string startDate, string endDate, Dictionary<DayOfWeek, TimeOnly> schedule) in classes)
             {
-                AddClass(code, name, credits, instructor, description, startDate);
+                AddClass(code, name, credits, instructor, description, startDate, endDate, schedule);
             }
         }
 

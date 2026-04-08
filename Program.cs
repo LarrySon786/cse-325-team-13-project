@@ -16,7 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddSingleton<StudentAccount>();
 builder.Services.AddScoped<DegreeProgress>();
-builder.Services.AddScoped<StudentSchedule>();
+//builder.Services.AddScoped<StudentSchedule>();
 
 
 var app = builder.Build();
