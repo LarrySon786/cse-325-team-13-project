@@ -1,0 +1,112 @@
+@using StudentPortal.Components.Shared.Models
+
+
+<style>
+    .overlay {
+        position: fixed;
+        z-index: 3000;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: rgb(0, 0, 0, 0.5 );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dialog-container {
+        background-color: white;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        padding: 2rem;
+        border-radius: 0.75rem;
+        width: 600px;
+        height:auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        position: relative;
+
+        & h3 {
+            grid-column: 1 / -1;
+            margin-bottom: 1rem;
+        }
+
+        & div {
+            grid-column: span 2;
+        }
+        .exit-button {
+            position: absolute;
+            top:5px;
+            right:15px;
+            color: #a8a8a8;
+            background-color: white;
+            border: none;
+            font-size: 1.5rem;
+            background: none;
+            height:20px;
+            width:20px;
+
+        }
+
+        & span {
+            font-weight: 700;
+        }
+    }
+</style>
+
+
+
+@if (DialogOn) {
+    <div class="overlay" @onclick="Close">
+        <div class="dialog-container" @onclick:stopPropagation>
+            <h3>@StudentClass?.code | @StudentClass?.name</h3>
+            <button class="exit-button" @onclick="Close">x</button>
+            <div>
+                <span>Class Dates:</span>
+                <p>@StudentClass?.startDate - @StudentClass?.endDate</p>
+
+                <span>Instructor:</span>
+                <p>@StudentClass?.instructor</p>
+
+                <p><span>Credits: </span>@StudentClass?.credits</p>
+
+                <span>Prerequisite Classes:</span>
+                <p>
+                    @(StudentClass?.prerequisiteClasses?.Any() == true
+                        ? string.Join(", ", StudentClass.prerequisiteClasses)
+                        : "None")
+                </p>
+
+            </div>
+            <div>
+                <span>Description: </span>
+                <p>@StudentClass.description</p>
+            </div>
+
+        </div>
+    </div>
+    
+
+}
+
+
+
+
+@code {
+
+    [Parameter]
+    public Class? StudentClass { get; set; }
+    [Parameter]
+    public bool DialogOn { get; set; }
+    [Parameter]
+    public EventCallback OnExit { get; set; }
+
+    private async Task Close() 
+    {
+        await OnExit.InvokeAsync();
+    }
+
+
+
+}
+

@@ -10,17 +10,23 @@ namespace StudentPortal.Data
             : base(options) { }
 
         // define tables
-        public DbSet<Student> Students { get; set; } 
+        public DbSet<Student> Students { get; set; }
+
+
 
         public string HashPassword(string password)
         {
             return password; //todo - hash password
         }
+        
+
         public void AddStudent(string firstName, string lastName, string email, string phone, string bio, string password)
         {
             string hashedPassword = HashPassword(password);
-            Students.Add(new Student{ FirstName = firstName, LastName = lastName, Email = email, Phone = phone, Bio = bio, HashedPassword = hashedPassword });
+            Students.Add(new Student { FirstName = firstName, LastName = lastName, Email = email, Phone = phone, Bio = bio, HashedPassword = hashedPassword });
         }
+        
+
         public void AddStudents(params (string firstName, string lastName, string email, string phone, string bio, string password)[] students)
         {
             foreach ((string firstName, string lastName, string email, string phone, string bio, string password) in students)
@@ -28,9 +34,11 @@ namespace StudentPortal.Data
                 AddStudent(firstName, lastName, email, phone, bio, password);
             }
         }
+
+
         public Student? GetStudent(string email, string hashedPassword)
         {
-            var result =  Students.Where(s => s.Email == email && s.HashedPassword == hashedPassword);
+            var result = Students.Where(s => s.Email == email && s.HashedPassword == hashedPassword);
             if (result == null)
                 return null;
             var resultList = result.ToList();
@@ -38,6 +46,9 @@ namespace StudentPortal.Data
                 return null;
             return resultList[0];
         }
+        
+
+        
         public void SetStudent(string email, string password, Student data, Student studentProfile)
         {
             var result = Students.Where(s => s.Email.Equals(email) && s.HashedPassword.Equals(password))?.ToList();

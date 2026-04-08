@@ -25,7 +25,7 @@ namespace StudentPortal.Components.Shared.Services
                 },
                 "Introduction to .NET development",
                 "Dr. Smith",
-                new List<string>()
+                new List<string>() { "CSE300" }
             );
             classes.Add(newClass);
         }

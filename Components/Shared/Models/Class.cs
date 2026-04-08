@@ -10,7 +10,7 @@ namespace StudentPortal.Components.Shared.Models
         public Dictionary<DayOfWeek, TimeOnly>? classSchedule;
         public string description { get; set; } = "";
         public string instructor { get; set; } = "";
-        public List<string> prerequisiteClasses = [];
+        public List<string> prerequisiteClasses { get; set; }
 
 
         public Class() { }
