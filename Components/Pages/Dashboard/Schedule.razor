@@ -2,7 +2,6 @@
 @using StudentPortal.Components.Shared.Models
 @using StudentPortal.Components.Shared.Services
 @inject StudentSchedule schedule
-@implements IDisposable
 
 
 
@@ -13,19 +12,30 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Class Code</th>
                 <th>Name</th>
-                <th>Credits</th>
+                <th>Class Time</th>
+                <th></th>
             </tr>
         </thead>
-
         <tbody>
             @foreach (Class item in schedule.classes)
             {
                 <tr>
-                    <td>@item.Code</td>
+
+<!--                     <td>@item.Code</td>
                     <td>@item.Name</td>
-                    <td>@item.Credits</td>
+                    <td>@item.Credits</td> -->
+
+                    <td>@item.name</td>
+                    <td>
+                        <p>
+                            @string.Join(", ", item.classSchedule.Select(s =>
+                            $"{s.Key.ToString().Substring(0,3)} {s.Value.ToString("h:mm tt").ToLower()}"))
+                        </p>
+                    </td>
+                    <td><button class="more-info-button" @onclick="() => DisplayClassInfo(item)">More Info</button></td>
+                    
+
                 </tr>
             }
         </tbody>
@@ -36,32 +46,23 @@ else
     <p>You are not registered for any classes. You can register <a href="/dashboard/class-registration">here</a>.</p>
 }
 
-
-<button class="btn btn-primary" @onclick="addTestClass">Add Test Class</button>
+<ClassDetailsDialog StudentClass="currentClass" DialogOn="showDialog" OnExit="CloseDialog"  />
 
 
 
 @code {
-    protected override void OnInitialized() 
+    private bool showDialog = false;
+    private Class currentClass;
+
+
+    private void DisplayClassInfo(Class chosenClass) 
     {
-        schedule.OnChange += HandleChange;
-    }
-    private void HandleChange() {
-        InvokeAsync(StateHasChanged);
+        currentClass = chosenClass;
+        showDialog = true;
     }
 
-    public void Dispose() {
-        schedule.OnChange -= HandleChange;
-    }
-
-    private void addTestClass()
+    private void CloseDialog() 
     {
-        schedule.registerClass(new Class
-        {
-            Code = "TEST101",
-            Name = "Test Class",
-            Credits = 3
-        });
+        showDialog = false;
     }
-
 }
