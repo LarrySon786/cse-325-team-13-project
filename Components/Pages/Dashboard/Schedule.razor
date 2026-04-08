@@ -28,7 +28,8 @@
                             $"{s.Key.ToString().Substring(0,3)} {s.Value.ToString("h:mm tt").ToLower()}"))
                         </p>
                     </td>
-                    <td><button class="more-info-button" @onclick=displayClassInfo>More Info</button></td>
+                    <td><button class="more-info-button" @onclick="() => DisplayClassInfo(item)">More Info</button></td>
+                    
                 </tr>
             }
         </tbody>
@@ -39,18 +40,23 @@ else
     <p>You are not registered for any classes. You can register <a href="/dashboard/class-registration">here</a>.</p>
 }
 
-
-@* The below code was simply for testing purpose only. Commented out *@
-@* <button class="btn btn-primary" @onclick="addTestClass">Add Test Class</button> *@
+<ClassDetailsDialog StudentClass="currentClass" DialogOn="showDialog" OnExit="CloseDialog"  />
 
 
 
 @code {
-    private void displayClassInfo() 
-    {
+    private bool showDialog = false;
+    private Class currentClass;
 
-        @* Display Dialog box with all the class details... This may be a good thing to put in the services file *@
+
+    private void DisplayClassInfo(Class chosenClass) 
+    {
+        currentClass = chosenClass;
+        showDialog = true;
     }
 
-
+    private void CloseDialog() 
+    {
+        showDialog = false;
+    }
 }
