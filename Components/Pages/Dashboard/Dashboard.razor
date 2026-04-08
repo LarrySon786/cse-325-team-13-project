@@ -1,5 +1,6 @@
-@page "/dashboard"
-
+@page "/dashboard";
+@inject StudentPortal.Components.Shared.Services.StudentAccount studentAccount;
+@inject NavigationManager Navigation
 
 <h1>Dashboard</h1>
 
@@ -75,5 +76,10 @@
 
 
 @code{
-
+  protected override void OnInitialized()
+    {
+        if (!studentAccount.IsLoggedIn()) {
+            Navigation.NavigateTo("/login");
+        }
+    }
 }

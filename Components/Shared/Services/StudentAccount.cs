@@ -6,25 +6,56 @@ namespace StudentPortal.Components.Shared.Services;
 public class StudentAccount
 {
     public Student studentProfile { get; set; }
+    public bool isLoggedIn = false;
 
     public StudentAccount()
     {
         // Temporary test data
-        studentProfile = new Student("Henry", "Smith", "hen@gmail.com", "000-000-0000", "Henry is cool.");
+        studentProfile = new Student{ FirstName = "", LastName = "", Email = "", Phone = "", Bio = "", HashedPassword = "" };
     }
 
-    public Student GetStudent()
+    public Student? GetStudent()
     {
         return studentProfile;
     }
 
+    public bool IsLoggedIn()
+    {
+        return isLoggedIn;
+    }
+
+    public bool SetLoggedIn(Student data)
+    {
+        isLoggedIn = true;
+        studentProfile.FirstName = data.FirstName;
+        studentProfile.LastName = data.LastName;
+        studentProfile.Email = data.Email;
+        studentProfile.Phone = data.Phone;
+        studentProfile.Bio = data.Bio;
+        studentProfile.HashedPassword = data.HashedPassword;
+        return IsLoggedIn();
+    }
+
     public void UpdateStudent(Student updatedStudent)
     {
-        studentProfile.studentFirstName = updatedStudent.studentFirstName;
-        studentProfile.studentLastName = updatedStudent.studentLastName;
-        studentProfile.email = updatedStudent.email;
-        studentProfile.phone = updatedStudent.phone;
-        studentProfile.studentBio = updatedStudent.studentBio;
+        if (!IsLoggedIn())
+            return;
+        studentProfile.FirstName = updatedStudent.FirstName;
+        studentProfile.LastName = updatedStudent.LastName;
+        studentProfile.Email = updatedStudent.Email;
+        studentProfile.Phone = updatedStudent.Phone;
+        studentProfile.Bio = updatedStudent.Bio;
+        studentProfile.HashedPassword = updatedStudent.HashedPassword;
+    }
+    public void LogOut()
+    {
+        isLoggedIn = false;
+        studentProfile.FirstName = "";
+        studentProfile.LastName = "";
+        studentProfile.Email = "";
+        studentProfile.Phone = "";
+        studentProfile.Bio = "";
+        studentProfile.HashedPassword = "";
     }
 }
 

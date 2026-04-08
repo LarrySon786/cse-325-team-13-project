@@ -7,7 +7,7 @@ WORKDIR /src
 
 # Copy only project file first for caching
 COPY StudentPortal.csproj ./
-RUN dotnet restore
+RUN dotnet restore StudentPortal.csproj
 
 # Copy everything else
 COPY . .
@@ -28,11 +28,11 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 COPY StudentPortal.csproj ./
-RUN dotnet restore
+RUN dotnet restore StudentPortal.csproj
 
 COPY . .
 
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet publish StudentPortal.csproj -c Release -o /app/publish
 
 # -----------------------------
 # Runtime Stage (production)

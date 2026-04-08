@@ -1,5 +1,6 @@
 
 @page "/seed-data"
+@using System.Text.Json
 @inject AppDbContext _context
 @rendermode InteractiveServer
 
@@ -8,11 +9,13 @@
 } else {
   <button @onclick="SeedDatabase">Seed Database</button>
   <p>@Message</p>
+  @* <p>@test</p> *@
 }
 
 
 @code {
-    private string Message;
+    private string Message = "";
+    //private string test = "";
     private bool seeding = false;
 
     protected async Task SeedDatabase()
@@ -25,20 +28,22 @@
             await _context.Database.EnsureCreatedAsync();
 
             // Add initial content
-            _context.Students.AddRange(
-                new Student { Name = "Alice", Email = "alice@example.com" },
-                new Student { Name = "Bob", Email = "bob@example.com" },
-                new Student { Name = "Charlie", Email = "charlie@example.com" }
+            _context.AddStudents(
+                ("fname1", "lname1", "student1@example.com", "000-000-0001", "bio1", "password1"),
+                ("fname2", "lname2", "student2@example.com", "000-000-0002", "bio2", "password2"),
+                ("fname3", "lname3", "student3@example.com", "000-000-0003", "bio3", "password3")
             );
 
             await _context.SaveChangesAsync();
 
             Message = "Database reset and seeded!";
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            Message = $"Error: {ex.Message}";
+            Message = $"Error: {e.Message}";
         }
         seeding = false;
+
+        //test = JsonSerializer.Serialize(_context.Students.ToList());
     }
 }
