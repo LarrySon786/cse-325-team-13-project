@@ -52,3 +52,7 @@
         background-color: #FFC328;
     }
 }
+
+.error-message {
+    color: red;
+}
