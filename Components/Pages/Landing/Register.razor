@@ -1,41 +1,65 @@
 @page "/register"
+@inject AppDbContext _context
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
 
 <div class="container">
 
-    <form class=login-container>
-        <h2>Student Registration</h2>
-        <fieldset>
-            <legend>Student Information</legend>
+    <EditForm model="studentData" OnValidSubmit="register">
+        <div class=login-container>
+            <h2>Student Registration</h2>
+            <fieldset>
+                <legend>Student Information</legend>
 
-            <label>First Name</label>
-            <input type="text" required>
+                <label>First Name</label>
+                <input @bind="studentData.FirstName" type="text" required>
 
-            <label>Last Name</label>
-            <input type="text" required>
+                <label>Last Name</label>
+                <input @bind="studentData.LastName" type="text" required>
 
-            <label>Email</label>
-            <input type="email" name="email" required>
-        </fieldset>
+                <label>Email</label>
+                <input @bind="studentData.Email" type="email" name="email" required>
+            </fieldset>
 
-        <fieldset>
-            <legend>Account Login</legend>
+            <fieldset>
+                <legend>Account Login</legend>
 
-            <label>Set Password</label>
-            <input type="text" name="password" required placeholder="•••••">
+                <label>Set Password</label>
+                <input @bind="password" type="password" name="password" required placeholder="•••••">
 
-            <label>Confirm Password</label>
-            <input type="text" name="password" required placeholder="•••••">
-            
-        </fieldset>
+                <label>Confirm Password</label>
+                <input @bind="confirmPassword" type="password" name="password" required placeholder="•••••">
+                
+            </fieldset>
 
-        <div class="buttons-container">
-            <input type="submit" value="Register">
+            <div class="buttons-container">
+                <input type="submit" value="Register">
+            </div>
         </div>
-    </form>
+        <p class="error-message">@message</p>
+    </EditForm>
     <a href="/">← Return</a>
 </div>
 
 
 @code {
+    private Student studentData = new();
+    private string password = "", confirmPassword = "";
+    private string message = "";
 
+    private void register() 
+    {
+        if (password != confirmPassword)
+        {
+            message = "Passwords don't match!";
+            return;
+        }
+        if (!_context.IsEmailAvailable(studentData.Email)) 
+        {
+            message = "Email is already used!";
+            return;
+        }
+        _context.AddStudent(studentData.FirstName, studentData.LastName, studentData.Email, studentData.Phone, studentData.Bio, password);
+        Navigation.NavigateTo("/login");
+    }
 }

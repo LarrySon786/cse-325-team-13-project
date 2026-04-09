@@ -41,7 +41,6 @@ namespace StudentPortal.Data
             SaveChanges();
 
         }
-        
 
         public void AddStudents(params (string firstName, string lastName, string email, string phone, string bio, string password)[] students)
         {
@@ -49,6 +48,10 @@ namespace StudentPortal.Data
             {
                 AddStudent(firstName, lastName, email, phone, bio, password);
             }
+        }
+        public bool IsEmailAvailable(string email)
+        {
+            return Students.Where(s => s.Email.Equals(email)).ToList().Count == 0;
         }
 
 
