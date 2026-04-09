@@ -1,0 +1,30 @@
+@page "/dashboard/student-support"
+@inject StudentPortal.Components.Shared.Services.StudentAccount studentAccount;
+
+
+
+
+<h1>Submit Support Ticket</h1>
+<p>Please reach out to our student services by completing the form below.</p>
+
+<div class="support-form-container">
+    <form>
+        <label for="name">Name</label>
+        <input type="text" value="@studentAccount.studentProfile.FirstName @studentAccount.studentProfile.LastName" 
+            name="name" 
+            required/>
+
+        <label for="email">Email </label>
+        <input type="email" value="@studentAccount.studentProfile.Email" name="email" required />
+
+        <label for="message"></label>
+        <textarea name="message" required placeholder="Your Message"></textarea>
+
+        <input type="submit" value="Create Support Ticket"/>
+    </form>
+</div>
+
+
+
+
+
