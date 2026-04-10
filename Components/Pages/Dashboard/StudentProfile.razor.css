@@ -69,3 +69,14 @@ a:hover, input[type="submit"]:hover {
         
     }
 }
+
+.logout-button {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+}
+.buttons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
