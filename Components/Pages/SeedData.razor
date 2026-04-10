@@ -9,13 +9,11 @@
 } else {
   <button @onclick="SeedDatabase">Seed Database</button>
   <p>@Message</p>
-  @* <p>@test</p> *@
 }
 
 
 @code {
     private string Message = "";
-    //private string test = "";
     private bool seeding = false;
 
     protected async Task SeedDatabase()
@@ -27,36 +25,52 @@
             await _context.Database.EnsureDeletedAsync();
             await _context.Database.EnsureCreatedAsync();
 
+            //add classes to the database
             _context.AddClasses(
-                ("code1", "name1", 1, "instructor1", "description1", "startDate1", "endDate1", 
+                ("CSE110", "Introduction to Programming", 2, "cse110-instructor", "cse110-description", "cse110-startDate", "cse110-endDate", 
                 new Dictionary<DayOfWeek, TimeOnly>
                 {
                     { DayOfWeek.Monday, new TimeOnly(9, 0) },
                     { DayOfWeek.Wednesday, new TimeOnly(9, 0) }
                 }),
-                ("code2", "name2", 1, "instructor2", "description2", "startDate2", "endDate2", 
+                ("CSE111", "Programming with Functions", 2, "cse111-instructor", "cse111-description", "cse111-startDate", "cse111-endDate", 
                 new Dictionary<DayOfWeek, TimeOnly>
                 {
                     { DayOfWeek.Tuesday, new TimeOnly(11, 30) },
                     { DayOfWeek.Wednesday, new TimeOnly(9, 0) }
                 }),
-                ("code3", "name3", 1, "instructor3", "description3", "startDate3", "endDate3", new()),
-                ("code4", "name4", 1, "instructor4", "description4", "startDate4", "endDate4", new()),
-                ("code5", "name5", 1, "instructor5", "description5", "startDate5", "endDate5", new())
+                ("CSE210", "Programming with Classes", 2, "cse210-instructor", "cse210-description", "cse210-startDate", "cse210-endDate", new()),
+                ("WDD130", "Web Fundamentals", 2, "wdd130-instructor", "wdd130-description", "wdd130-startDate", "wdd130-endDate", new()),
+                ("WDD131", "Dynamic Web Fundamentals", 2, "wdd131-instructor", "wdd131-description", "wdd131-startDate", "wdd131-endDate", new()),
+                ("WDD231","Web Frontend Development I",2,"wdd231-instructor","wdd231-description","wdd231-startData","wdd231-endDate",new()),
+                ("CSE340","Web Backend Development",3,"cse340-instructor","cse340-description","cse340-startData","cse340-endDate",new()),
+                ("CSE341","Web Services",3,"cse341-instructor","cse341-description","cse341-startData","cse341-endDate",new()),
+                ("ITM111","Introduction to Databases",3,"itm111-instructor","itm111-description","itm111-startData","itm111-endDate",new()),
+                ("WDD330","Web Frontend Development II",3,"wdd330-instructor","wdd330-description","wdd330-startData","wdd330-endDate",new()),
+                ("WDD430","Web Full-Stack Development",3,"wdd430-instructor","wdd430-description","wdd430-startData","wdd430-endDate",new()),
+                ("CSE212","Programming with Data Structures",2,"cse212-instructor","cse212-description","cse212-startData","cse212-endDate",new()),
+                ("CSE270","Software Testing",3,"cse270-instructor","cse270-description","cse270-startData","cse270-endDate",new()),
+                ("CSE300","Professional Readiness",1,"cse300-instructor","cse300-description","cse300-startData","cse300-endDate",new()),
+                ("CSE310","Applied Programming",3,"cse310-instructor","cse310-description","cse310-startData","cse310-endDate",new()),
+                ("CSE325",".Net Software Development",3,"cse325-instructor","cse325-description","cse325-startData","cse325-endDate",new()),
+                ("CSE370","Software Engineering Principles",2,"cse270-instructor","cse270-description","cse270-startData","cse270-endDate",new())
+            
             );
 
-            // Add initial content
+            // Add students to the database
             _context.AddStudents(
-                ("fname1", "lname1", "student1@example.com", "000-000-0001", "bio1", "password1"),
-                ("fname2", "lname2", "student2@example.com", "000-000-0002", "bio2", "password2"),
-                ("fname3", "lname3", "student3@example.com", "000-000-0003", "bio3", "password3")
+                ("student1-fname", "student1-lname", "student1@example.com", "000-000-0001", "student1-bio", "password1"),
+                ("student2-fname", "student2-lname", "student2@example.com", "000-000-0002", "student2-bio", "password2"),
+                ("student3-fname", "student3-lname", "student3@example.com", "000-000-0003", "student3-bio", "password3")
             );
 
+            //register classes for students
             _context.RegisterClasses(
                 (1, 5),
                 (3, 4)
             );
 
+            //sync the database with the new seed data
             await _context.SaveChangesAsync();
 
             Message = "Database reset and seeded!";
@@ -66,7 +80,5 @@
             Message = $"Error: {e.Message}";
         }
         seeding = false;
-
-        //test = JsonSerializer.Serialize(_context.Students.ToList());
     }
 }
