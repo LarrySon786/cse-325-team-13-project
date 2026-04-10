@@ -19,7 +19,7 @@
 
     }
 
-    & input {
+    & input, ::deep & .textbox {
         display: block;
         color: black;
         margin-bottom: 1rem;
@@ -28,7 +28,8 @@
     }
 
     & a,
-    input[type="submit"] {
+    input[type="submit"],
+    & button {
         display: inline-block;
         text-decoration: none;
         background-color: white;

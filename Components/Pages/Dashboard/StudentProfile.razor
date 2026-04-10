@@ -23,11 +23,16 @@
                 <p><span class=".span-strong">Bio: </span>@studentAccount.studentProfile?.Bio</p>
             </div>
         </div>
+        <div class="buttons">
         @* Edit My Profile Link *@
-        <div class="profile-button-container">
-            <p></p>
-            <p></p>
-            <a href="/dashboard/profile/edit">Edit Profile</a>
+            <div class="profile-button-container">
+                <p></p>
+                <p></p>
+                <a href="/dashboard/profile/edit">Edit Profile</a>
+            </div>
+            <div class="logout-button">
+                <a href="/logout">Logout</a>
+            </div>
         </div>
     </div>
 
@@ -35,6 +40,7 @@
         <h2>Enrolled Program: </h2>
         <p>Enrollment Date: </p>
     </div>
+    
 </div>
 
 @code {
