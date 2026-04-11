@@ -59,6 +59,7 @@
 
             </fieldset>
         </EditForm>
+        <p>@message</p>
 
     </div>
 </div>
@@ -66,10 +67,18 @@
 
 @code {
     Student editStudent = new(); //create a copy, so database entry can still be found if username/password changes
+    private string message;
     protected override void OnInitialized()
     {
         if (!studentAccount.IsLoggedIn()) {
             Navigation.NavigateTo("/login");
+            return;
+        }
+        @* Ensure your profile is NOT null *@
+        if (studentAccount.studentProfile == null)
+        {
+            Navigation.NavigateTo("/login");
+            return;
         }
         //the form should wus the current data as placeholder text
         editStudent = new Student{ 
@@ -83,10 +92,17 @@
     }
     private void UpdateProfile()
     {
-        _context.SetStudent(studentAccount.studentProfile.Email, studentAccount.studentProfile.HashedPassword, editStudent, studentAccount.studentProfile);
-        //studentAccount.UpdateStudent(editStudent);
-        Console.WriteLine("Profile Updated");
-        nav.NavigateTo("/dashboard/profile");
+        try {
+            _context.SetStudent(studentAccount.studentProfile.Email, studentAccount.studentProfile.HashedPassword, editStudent, studentAccount.studentProfile);
+            //studentAccount.UpdateStudent(editStudent);
+            Console.WriteLine("Profile Updated");
+            nav.NavigateTo("/dashboard/profile");
+        }
+        catch (Exception ex) {
+            message = "There was an error updating your profile";
+            Console.WriteLine($"Update Profile Error: {ex}");
+        }
     }
+        
 }
 

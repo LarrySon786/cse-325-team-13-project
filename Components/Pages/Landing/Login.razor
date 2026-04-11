@@ -47,8 +47,8 @@
             studentAccount.SetLoggedIn(data);
             Navigation.NavigateTo("/dashboard");
 
-        } catch {
-
+        } catch (Exception ex) {
+            Console.WriteLine($"Login Error: {ex.Message}");
         }
     }
 }

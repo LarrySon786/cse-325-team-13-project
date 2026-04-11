@@ -47,6 +47,7 @@ else
 {
     <p>You are not registered for any classes. You can register <a href="/dashboard/class-registration">here</a>.</p>
 }
+<p>@message</p>
 
 <ClassDetailsDialog StudentClass="currentClass" DialogOn="showDialog" OnExit="CloseDialog"  />
 
@@ -55,6 +56,7 @@ else
 @code {
     private bool showDialog = false;
     private Class currentClass;
+    private string message;
 
     private List<Class> classes = new();
 
@@ -62,8 +64,15 @@ else
     {
         if (!studentAccount.IsLoggedIn()) {
             Navigation.NavigateTo("/login");
+            return;
         }
-        classes = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
+        try {
+            classes = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
+        }
+        catch (Exception ex) {
+            message = "There was an error while obtaining your class schedule";
+            Console.WriteLine($"Error requesting class data {ex}");
+        }
     }
     private void DisplayClassInfo(Class chosenClass) 
     {

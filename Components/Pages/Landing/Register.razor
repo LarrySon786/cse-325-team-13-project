@@ -59,7 +59,15 @@
             message = "Email is already used!";
             return;
         }
-        _context.AddStudent(studentData.FirstName, studentData.LastName, studentData.Email, studentData.Phone, studentData.Bio, password);
-        Navigation.NavigateTo("/login");
+        try {
+            _context.AddStudent(studentData.FirstName, studentData.LastName, studentData.Email, studentData.Phone, studentData.Bio, password);
+            Navigation.NavigateTo("/login");
+            message = "Registration Successful!";
+        }
+        catch (Exception err) {
+            message = "Something went wrong while creating your account. Please try again.";
+            Console.WriteLine($"Registration error: {err}");
+        }
+        
     }
 }
