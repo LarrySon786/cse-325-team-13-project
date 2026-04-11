@@ -48,6 +48,7 @@
     {
         if (!studentAccount.IsLoggedIn()) {
             Navigation.NavigateTo("/login");
+            return;
         }
     }
 }

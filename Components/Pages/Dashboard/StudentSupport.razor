@@ -27,7 +27,13 @@
 
 
 @code {
-
+    private void OnInitialized() {
+        if (!studentAccount.IsLoggedIn()) {
+            Navigation.NavigateTo("/login");
+            return;
+        }
+    }
+    
 
     private void SubmitTicket() 
     {

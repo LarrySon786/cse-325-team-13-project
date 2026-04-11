@@ -94,8 +94,15 @@ else
             Navigation.NavigateTo("/login");
             return;
         }
-        unenrolledClasses = _context.GetClassesNotEnrolled(studentAccount.studentProfile.Id);
-        enrolledClasses = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
+        try {
+            unenrolledClasses = _context.GetClassesNotEnrolled(studentAccount.studentProfile.Id);
+            enrolledClasses = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
+        }
+        catch (Exception ex) {
+            message = "An error occured when retrieving available classes. Please try again later or contact your adiminstrator for assistance.";
+            Console.WriteLine($"There was a problem retrieving unenrolled and enrolled classes from the database: {ex}");
+        }
+        
         
         //todo switch to using db
         //DateOnly semesterStart = new DateOnly(2026, 1, 1);
@@ -153,27 +160,40 @@ else
         return schedule.getSchedule().Any(c => c.Code == code);
     } *@
 
-private string message = (""); 
+    private string message = (""); 
 
     void Register(Class c)
-{
+    {
 
-    _context.RegisterClass(studentAccount.studentProfile.Id, c.Id);
+        try {
+            _context.RegisterClass(studentAccount.studentProfile.Id, c.Id);
 
-    //sync with db
-    unenrolledClasses = _context.GetClassesNotEnrolled(studentAccount.studentProfile.Id);
-    enrolledClasses = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
-}
+            //sync with db
+            unenrolledClasses = _context.GetClassesNotEnrolled(studentAccount.studentProfile.Id);
+            enrolledClasses = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
+        }
+        catch (Exception ex) {
+            message = "There was an issue adding your class. Please try again later";
+            Console.WriteLine($"Registrtation Error: {ex}");
+        }
+        
+    }
 
     void Drop(int id)
     {
         //immediate update
         enrolledClasses = enrolledClasses.Where(c => c.Id != id).ToList();
 
-        _context.UnRegisterClass(studentAccount.studentProfile.Id, id);
+        try {
+            _context.UnRegisterClass(studentAccount.studentProfile.Id, id);
 
-        //sync with db
-        unenrolledClasses = _context.GetClassesNotEnrolled(studentAccount.studentProfile.Id);
-        enrolledClasses = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
+            //sync with db
+            unenrolledClasses = _context.GetClassesNotEnrolled(studentAccount.studentProfile.Id);
+            enrolledClasses = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
+        }
+        catch (Exception ex) {
+            message = "There was an issue dropping your class. Please try again later";
+            Console.WriteLine($"Unregister Class Error: {ex}");
+        }
     }
 }

@@ -1,5 +1,7 @@
 @page "/dashboard/thank-you"
 @inject SupportTicketState TicketState
+@inject StudentPortal.Components.Shared.Services.StudentAccount studentAccount;
+@inject NavigationManager Navigation
 
 <h1>Thank You</h1>
 <p>Your message has been received! Our support team will return your messaage by email soon.</p>
@@ -19,6 +21,15 @@
 @code {
     DateOnly date = DateOnly.FromDateTime(DateTime.Now);
     TimeOnly time = TimeOnly.FromDateTime(DateTime.Now);
+
+    private void OnInitialized()
+    {
+        if (!studentAccount.IsLoggedIn())
+        {
+            Navigation.NavigateTo("/login");
+            return;
+        }
+    }
     
 }
 

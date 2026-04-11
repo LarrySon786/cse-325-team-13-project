@@ -1,11 +1,41 @@
 @page "/dashboard";
+@using StudentPortal.Components.Shared.Models
+@using StudentPortal.Components.Shared.Services
 @inject StudentPortal.Components.Shared.Services.StudentAccount studentAccount;
 @inject NavigationManager Navigation
+@inject StudentPortal.Components.Shared.Services.StudentAccount studentAccount;
+@inject AppDbContext _context
 
 <h1>Dashboard</h1>
 
 <div class="widgets">
     <div class="widget-container">
+        <div class="widget-header">
+            <p>My Classes</p>
+        </div>
+        
+        @if (classes.Count > 0) 
+        {
+            @foreach (Class c in classes) {
+                <p>@c.Name</p>
+            }
+        }
+        else 
+        {
+            <p>No classes registered</p>
+        }
+    </div>
+    <div class="widget-container">
+        <div class="widget-header">
+            <p>BYU Announcements</p>
+        </div>
+        <ul>
+            <li>Registration deadline for classes is @registrationDeadline</li>
+            <li>Please make sure to register early! Some classes fill up fast.</li>
+        </ul>
+    </div>
+    @* BELOW ARE SIMPLY IDEAS WE HAD FOR DASHBOARD CARDS *@
+    @* <div class="widget-container">
         <div class="widget-header">
             <p>My Academics</p>
         </div>
@@ -17,8 +47,8 @@
         <p><a href="/dashboard/degree-progress">Here</a></p>
         <span>Student Resources </span>
         <p></p>
-    </div>
-    <div class="widget-container">
+    </div> *@
+    @* <div class="widget-container">
         <div class="widget-header">
             <p>My Tasks</p>
         </div>
@@ -67,7 +97,7 @@
         <p>02/01/2026</p>
         <span>Term 4 Registration Deadline: </span> 
         <p>03/07/2026</p>
-    </div>
+    </div> *@
 </div>
 
 
@@ -76,10 +106,23 @@
 
 
 @code{
-  protected override void OnInitialized()
-    {
-        if (!studentAccount.IsLoggedIn()) {
-            Navigation.NavigateTo("/login");
+
+    DateOnly registrationDeadline = DateOnly.FromDateTime(DateTime.Now.AddDays(7));
+    private List<Class> classes = new();
+
+    protected override void OnInitialized()
+        {
+            if (!studentAccount.IsLoggedIn()) {
+                Navigation.NavigateTo("/login");
+                return;
+            }
+            try {
+                classes = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Could not retrieve classes from database. Error: {ex}");
+            }
+            
+            DateOnly registrationDeadline = DateOnly.FromDateTime(DateTime.Now.AddDays(7));
         }
-    }
 }
