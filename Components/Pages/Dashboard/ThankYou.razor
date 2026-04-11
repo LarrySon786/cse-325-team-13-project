@@ -1,0 +1,30 @@
+@page "/dashboard/thank-you"
+@inject SupportTicketState TicketState
+
+<h1>Thank You</h1>
+<p>Your message has been received! Our support team will return your messaage by email soon.</p>
+
+<div class="container">
+    <h3>Your Ticket:</h3>
+    <p><span>Date: </span>@date</p>
+    <p><span>Time: </span>@time</p>
+    <p><span>Name:</span> @TicketState.Name</p>
+    <p><span>Email:</span> @TicketState.Email</p>
+    <p><span>Message:</span> @TicketState.Message</p>
+
+</div>
+
+
+
+@code {
+    DateOnly date = DateOnly.FromDateTime(DateTime.Now);
+    TimeOnly time = TimeOnly.FromDateTime(DateTime.Now);
+    
+}
+
+
+<style>
+    span {
+        font-weight: 700;
+    }
+</style>
