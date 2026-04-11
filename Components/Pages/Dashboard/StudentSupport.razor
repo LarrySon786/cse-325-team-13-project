@@ -1,30 +1,41 @@
 @page "/dashboard/student-support"
 @inject StudentPortal.Components.Shared.Services.StudentAccount studentAccount;
+@inject NavigationManager Navigation
+@inject SupportTicketState TicketState
 
+<div class="container">
+    <h1>Submit Support Ticket</h1>
+    <p>Please reach out to our student services by completing the form below.</p>
 
+    <EditForm OnValidSubmit="SubmitTicket" Model="TicketState">
+        <label for="name" class="form-label mt-2">Name</label>
+        <input type="text" class="form-control mb-4"
+                @bind-value="TicketState.Name"
+                required/>
 
+        <label class="form-label">Email </label>
+        <input type="email" class="form-control  mb-4" @bind-value="TicketState.Email"
+               required />
 
-<h1>Submit Support Ticket</h1>
-<p>Please reach out to our student services by completing the form below.</p>
+        <label class="form-label">Message:</label>
+        <InputTextArea class="form-control mb-4" @bind-value="TicketState.Message" required placeholder="Your Message"></InputTextArea>
 
-<div class="support-form-container">
-    <form>
-        <label for="name">Name</label>
-        <input type="text" value="@studentAccount.studentProfile.FirstName @studentAccount.studentProfile.LastName" 
-            name="name" 
-            required/>
-
-        <label for="email">Email </label>
-        <input type="email" value="@studentAccount.studentProfile.Email" name="email" required />
-
-        <label for="message"></label>
-        <textarea name="message" required placeholder="Your Message"></textarea>
-
-        <input type="submit" value="Create Support Ticket"/>
-    </form>
+        <input type="submit" value="Create Support Ticket" style="min-width: 400px;"/>
+    </EditForm>
 </div>
 
 
 
+@code {
 
+
+    private void SubmitTicket() 
+    {
+        @* TicketState.Name = supportTicket.Name;
+        TicketState.Email = supportTicket.Email;
+        TicketState.Message = supportTicket.Message; *@
+        Navigation.NavigateTo("/dashboard/thank-you");
+    }
+
+}
 
