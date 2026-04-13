@@ -2,6 +2,7 @@ namespace StudentPortal.Components.Shared.Services;
 
 // STILL NEED TO TURN THIS INTO A MODEL
 
+//currently unused
 public class DegreeProgress
 {
 

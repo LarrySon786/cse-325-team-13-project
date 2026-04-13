@@ -10,11 +10,11 @@ namespace StudentPortal.Data
             : base(options) { }
 
         // define tables
-
         public DbSet<Student> Students { get; set; } 
         public DbSet<Class> Classes { get; set; }
         public DbSet<ClassToStudent> Enrollments { get; set; }
 
+        //classes
         public void AddClass(string code, string name, int credits, string instructor, string description, string startDate, string endDate, Dictionary<DayOfWeek, TimeOnly> schedule)
         {
             Classes.Add(new Class{ Code = code, Name = name, Credits = credits, Instructor = instructor, Description = description, StartDate = startDate, EndDate = endDate, ClassSchedule = schedule });
@@ -27,12 +27,14 @@ namespace StudentPortal.Data
             }
         }
 
+        //hash the password - currently not implemented
         public string HashPassword(string password)
         {
             return password; //todo - hash password
         }
         
 
+        //students
         public void AddStudent(string firstName, string lastName, string email, string phone, string bio, string password)
         {
             string hashedPassword = HashPassword(password);
@@ -49,12 +51,6 @@ namespace StudentPortal.Data
                 AddStudent(firstName, lastName, email, phone, bio, password);
             }
         }
-        public bool IsEmailAvailable(string email)
-        {
-            return Students.Where(s => s.Email.Equals(email)).ToList().Count == 0;
-        }
-
-
         public Student? GetStudent(string email, string hashedPassword)
         {
             var result = Students.Where(s => s.Email == email && s.HashedPassword == hashedPassword);
@@ -65,9 +61,7 @@ namespace StudentPortal.Data
                 return null;
             return resultList[0];
         }
-        
 
-        
         public void SetStudent(string email, string password, Student data, Student studentProfile)
         {
             var result = Students.Where(s => s.Email.Equals(email) && s.HashedPassword.Equals(password))?.ToList();
@@ -92,6 +86,13 @@ namespace StudentPortal.Data
             SaveChanges();
         }
 
+        //checks if email is already used
+        public bool IsEmailAvailable(string email)
+        {
+            return Students.Where(s => s.Email.Equals(email)).ToList().Count == 0;
+        }
+
+        //class registration/enrollment
         public void RegisterClass(int studentId, int classId)
         {
             Enrollments.Add(new ClassToStudent{ StudentId = studentId, ClassId = classId });

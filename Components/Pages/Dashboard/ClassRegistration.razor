@@ -26,6 +26,7 @@ else
                 <th>Action</th>
             </tr>
         </thead>
+        <!-- unenrolled classes -->
         <tbody>
             @foreach (var c in unenrolledClasses)
             {
@@ -54,6 +55,7 @@ else
 }
 else
 {
+    <!-- enrolled classes -->
     <table class="table">
         <thead>
             <tr>
@@ -84,16 +86,20 @@ else
 <p style="color: green">@message</p>
 
 @code {
+    //init class lists
     private List<Class> unenrolledClasses = new();
     private List<Class> enrolledClasses = new();
 
     protected override void OnInitialized()
     {
 
+        //if not logged in -> go to login
         if (!studentAccount.IsLoggedIn()) {
             Navigation.NavigateTo("/login");
             return;
         }
+
+        //load classes
         try {
             unenrolledClasses = _context.GetClassesNotEnrolled(studentAccount.studentProfile.Id);
             enrolledClasses = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
@@ -102,63 +108,7 @@ else
             message = "An error occured when retrieving available classes. Please try again later or contact your adiminstrator for assistance.";
             Console.WriteLine($"There was a problem retrieving unenrolled and enrolled classes from the database: {ex}");
         }
-        
-        
-        //todo switch to using db
-        //DateOnly semesterStart = new DateOnly(2026, 1, 1);
-        //DateOnly semesterEnd = new DateOnly(2026, 2, 28);
-        @* availableClasses = new List<Class>
-        {
-        new Class("Web Development", "CSE300", 3, semesterStart,semesterEnd,
-                        new()
-                        {
-                            { DayOfWeek.Tuesday, new TimeOnly(10, 0) },
-                            { DayOfWeek.Thursday, new TimeOnly(10, 0) }
-                        },
-                        "Frontend and backend web development",
-                        "Dr. Johnson",
-                        new()
-        ),
-        new Class(".NET Software", "CSE325", 3, semesterStart, semesterEnd,
-                        new()
-                        {
-                            { DayOfWeek.Monday, new TimeOnly(9, 0) },
-                            { DayOfWeek.Wednesday, new TimeOnly(9, 0) }
-                        },
-                        "Introduction to .NET and Blazor",
-                        "Dr. Smith",
-                        new()
-        ),
-
-        new Class("Database Systems", "CSE310", 3, semesterStart, semesterEnd,
-                        new()
-                        {
-                            { DayOfWeek.Monday, new TimeOnly(1, 0) },
-                            { DayOfWeek.Wednesday, new TimeOnly(1, 0) }
-                        },
-                        "Relational databases and SQL",
-                        "Dr. Brown",
-                        new List<string> { "CSE200" }
-        ),
-
-        new Class("Networking", "CSE340", 3, semesterStart, semesterEnd,
-                        new()
-                        {
-                            { DayOfWeek.Tuesday, new TimeOnly(2, 0) },
-                            { DayOfWeek.Thursday, new TimeOnly(2, 0) }
-                        },
-                        "Computer networking fundamentals",
-                        "Dr. Davis",
-                        new List<string> { "CSE210" }
-        )
-    }; *@
-
     }
-@* 
-    bool IsRegistered(string code)
-    {
-        return schedule.getSchedule().Any(c => c.Code == code);
-    } *@
 
     private string message = (""); 
 

@@ -49,16 +49,19 @@
 
     private void register() 
     {
+        //password and confirmation password must be equal
         if (password != confirmPassword)
         {
             message = "Passwords don't match!";
             return;
         }
+        //an email cant be used twice
         if (!_context.IsEmailAvailable(studentData.Email)) 
         {
             message = "Email is already used!";
             return;
         }
+        //attempt to add the student
         try {
             _context.AddStudent(studentData.FirstName, studentData.LastName, studentData.Email, studentData.Phone, studentData.Bio, password);
             Navigation.NavigateTo("/login");

@@ -1,7 +1,4 @@
 
-
-
-
 public class SupportTicketState
 {
     public string Name { get; set; } = "";

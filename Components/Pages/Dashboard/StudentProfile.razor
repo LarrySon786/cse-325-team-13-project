@@ -15,11 +15,8 @@
                     <span class=".span-strong">Student Name: </span>
                     @studentAccount.studentProfile?.FirstName @studentAccount.studentProfile?.LastName
                 </p>
-
                 <p><span class=".span-strong">Email: </span>@studentAccount.studentProfile?.Email</p>
-
                 <p><span class=".span-strong">Phone: </span>@studentAccount.studentProfile?.Phone</p>
-
                 <p><span class=".span-strong">Bio: </span>@studentAccount.studentProfile?.Bio</p>
             </div>
         </div>
@@ -46,6 +43,7 @@
 @code {
     protected override void OnInitialized()
     {
+        //if not logged in -> go to login
         if (!studentAccount.IsLoggedIn()) {
             Navigation.NavigateTo("/login");
             return;

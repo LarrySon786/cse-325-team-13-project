@@ -4,9 +4,12 @@
 
 @inject StudentAccount studentAccount
 
+<!-- no html needed because it immediatly redirects -->
+
 @code {
   protected override void OnInitialized()
   {
+    //logout
     studentAccount.LogOut();
     Navigation.NavigateTo("/login");
   }
