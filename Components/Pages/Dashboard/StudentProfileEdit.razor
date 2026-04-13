@@ -70,6 +70,7 @@
     private string message;
     protected override void OnInitialized()
     {
+        //if not logged in -> go to login
         if (!studentAccount.IsLoggedIn()) {
             Navigation.NavigateTo("/login");
             return;
@@ -80,7 +81,7 @@
             Navigation.NavigateTo("/login");
             return;
         }
-        //the form should wus the current data as placeholder text
+        //the form should use the current data as placeholder text
         editStudent = new Student{ 
             FirstName = studentAccount.studentProfile.FirstName,
             LastName = studentAccount.studentProfile.LastName,
@@ -92,9 +93,9 @@
     }
     private void UpdateProfile()
     {
+        //attempt to update the student profile
         try {
             _context.SetStudent(studentAccount.studentProfile.Email, studentAccount.studentProfile.HashedPassword, editStudent, studentAccount.studentProfile);
-            //studentAccount.UpdateStudent(editStudent);
             Console.WriteLine("Profile Updated");
             nav.NavigateTo("/dashboard/profile");
         }

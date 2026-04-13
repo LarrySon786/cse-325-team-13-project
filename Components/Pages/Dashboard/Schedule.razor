@@ -23,11 +23,6 @@
             @foreach (Class c in classes)
             {
                 <tr>
-
-<!--                <td>@item.Code</td>
-                    <td>@item.Name</td>
-                    <td>@item.Credits</td> -->
-
                     <td>@c.Name</td>
                     <td>
                         <p>
@@ -62,10 +57,12 @@ else
 
     protected override void OnInitialized()
     {
+        //if not logged in -> go to login
         if (!studentAccount.IsLoggedIn()) {
             Navigation.NavigateTo("/login");
             return;
         }
+        //load classes
         try {
             classes = _context.GetClassesEnrolled(studentAccount.studentProfile.Id);
         }
@@ -74,12 +71,15 @@ else
             Console.WriteLine($"Error requesting class data {ex}");
         }
     }
+
+    //open class detils
     private void DisplayClassInfo(Class chosenClass) 
     {
         currentClass = chosenClass;
         showDialog = true;
     }
 
+    //close class details
     private void CloseDialog() 
     {
         showDialog = false;

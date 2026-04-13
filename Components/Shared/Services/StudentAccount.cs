@@ -8,7 +8,7 @@ public class StudentAccount
     public Student studentProfile { get; set; }
     public bool isLoggedIn = false;
 
-    public StudentAccount()
+    public StudentAccount() //shouldnt be used anywhere
     {
         // Temporary test data
         studentProfile = new Student{ Id = -1, FirstName = "", LastName = "", Email = "", Phone = "", Bio = "", HashedPassword = "" };
@@ -24,6 +24,7 @@ public class StudentAccount
         return isLoggedIn;
     }
 
+    //set user data that came from the database
     public bool SetLoggedIn(Student data)
     {
         isLoggedIn = true;
@@ -37,18 +38,7 @@ public class StudentAccount
         return IsLoggedIn();
     }
 
-    // public void UpdateStudent(Student updatedStudent)
-    // {
-    //     if (!IsLoggedIn())
-    //         return;
-    //     studentProfile.Id = updatedStudent.Id;
-    //     studentProfile.FirstName = updatedStudent.FirstName;
-    //     studentProfile.LastName = updatedStudent.LastName;
-    //     studentProfile.Email = updatedStudent.Email;
-    //     studentProfile.Phone = updatedStudent.Phone;
-    //     studentProfile.Bio = updatedStudent.Bio;
-    //     studentProfile.HashedPassword = updatedStudent.HashedPassword;
-    // }
+    //change all data to the default
     public void LogOut()
     {
         isLoggedIn = false;

@@ -28,6 +28,7 @@
 
 @code {
     private void OnInitialized() {
+        //if not logged in -> go to login
         if (!studentAccount.IsLoggedIn()) {
             Navigation.NavigateTo("/login");
             return;

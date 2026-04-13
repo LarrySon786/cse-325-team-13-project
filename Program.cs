@@ -5,23 +5,25 @@ using StudentPortal.Components.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+//force it to use port 8080
 builder.WebHost.UseUrls("http://0.0.0.0:8080");
 
+
+//services
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddSingleton<StudentAccount>();
 builder.Services.AddScoped<DegreeProgress>();
-//builder.Services.AddScoped<StudentSchedule>();
 builder.Services.AddScoped<SupportTicketState>();
 
 
 var app = builder.Build();
 
+//database scope
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
